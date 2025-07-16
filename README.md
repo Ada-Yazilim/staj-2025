@@ -1,5 +1,6 @@
 ![Logo](https://www.adayazilim.com/public/dist/img/ada-yazilim-logo.png)
 
+
 # Ada Yazılım - 2025 Staj Programı
 
 **Ada Yazılım** olarak her yıl düzenli olarak gerçekleştirdiğimiz staj programımızın bu yıla ait planlaması aşağıda belirtilen esaslar doğrultusunda yürütülecektir:
