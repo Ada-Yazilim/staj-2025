@@ -1,0 +1,129 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.App-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  color: white;
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.App-header h2 {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #f0f0f0;
+}
+
+.kullanici-listesi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.kullanici-karti {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #333;
+}
+
+.kullanici-karti:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.kullanici-karti h3 {
+  color: #667eea;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 8px;
+}
+
+.kullanici-karti p {
+  margin: 8px 0;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.kullanici-karti strong {
+  color: #555;
+  font-weight: 600;
+}
+
+.yenile-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.yenile-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.yenile-btn:active {
+  transform: translateY(0);
+}
+
+/* Loading ve Error durumları için */
+.App-header p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+button {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2rem;
+  }
+  
+  .App-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .kullanici-listesi {
+    grid-template-columns: 1fr;
+  }
+  
+  .kullanici-karti {
+    margin: 0 10px;
+  }
+}

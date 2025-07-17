@@ -1,0 +1,6 @@
+@SigortaYonetimAPI_HostAddress = http://localhost:5293
+
+GET {{SigortaYonetimAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
