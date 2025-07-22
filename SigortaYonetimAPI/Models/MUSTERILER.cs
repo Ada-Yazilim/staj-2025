@@ -82,4 +82,8 @@ public partial class MUSTERILER
     public virtual DURUM_TANIMLARI? medeni_durum { get; set; }
 
     public virtual DURUM_TANIMLARI tip { get; set; } = null!;
+    
+    // Identity Framework entegrasyonu
+    public string? ApplicationUserId { get; set; }
+    public virtual ApplicationUser? ApplicationUser { get; set; }
 }

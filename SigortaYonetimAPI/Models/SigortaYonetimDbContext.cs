@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SigortaYonetimAPI.Models;
 
-public partial class SigortaYonetimDbContext : DbContext
+public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
 {
     public SigortaYonetimDbContext()
     {
@@ -58,6 +59,10 @@ public partial class SigortaYonetimDbContext : DbContext
     public virtual DbSet<SISTEM_LOGLARI> SISTEM_LOGLARIs { get; set; }
 
     public virtual DbSet<TAKSITLER> TAKSITLERs { get; set; }
+
+    // Identity DbSets
+    public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
+    public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -795,6 +800,40 @@ public partial class SigortaYonetimDbContext : DbContext
                 .HasForeignKey(d => d.police_id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__TAKSITLER__polic__236943A5");
+        });
+
+        // Identity tablo konfigürasyonları
+        base.OnModelCreating(modelBuilder);
+        
+        // Identity Framework entegrasyonları
+        modelBuilder.Entity<ApplicationUser>(entity =>
+        {
+            // KULLANICILAR tablosu ile ilişki
+            entity.HasOne(d => d.Kullanici)
+                .WithMany()
+                .HasForeignKey(d => d.KullanicilarId)
+                .OnDelete(DeleteBehavior.SetNull);
+                
+            // MUSTERILER tablosu ile ilişki    
+            entity.HasOne(d => d.Musteri)
+                .WithOne(p => p.ApplicationUser)
+                .HasForeignKey<ApplicationUser>(d => d.MusteriId)
+                .OnDelete(DeleteBehavior.SetNull);
+                
+            // Hierarchical relationship (Yönetici-Ast ilişkisi)
+            entity.HasOne(d => d.Yonetici)
+                .WithMany(p => p.AstKullanicilar)
+                .HasForeignKey(d => d.YoneticiId)
+                .OnDelete(DeleteBehavior.SetNull);
+        });
+        
+        modelBuilder.Entity<MUSTERILER>(entity =>
+        {
+            // ApplicationUser ile ilişki
+            entity.HasOne(d => d.ApplicationUser)
+                .WithOne(p => p.Musteri)
+                .HasForeignKey<MUSTERILER>(d => d.ApplicationUserId)
+                .OnDelete(DeleteBehavior.SetNull);
         });
 
         OnModelCreatingPartial(modelBuilder);
