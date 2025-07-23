@@ -1,0 +1,91 @@
+!SESSION 2025-07-17 08:48:18.437 -----------------------------------------------
+eclipse.buildId=4.35.0.202503181406
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.springframework.boot.ide.branding.sts4
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.springframework.boot.ide.branding.sts4
+
+!ENTRY ch.qos.logback.classic 1 0 2025-07-17 08:48:20.558
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY org.eclipse.lemminx.uber-jar 4 0 2025-07-17 08:48:20.757
+!MESSAGE bundle org.eclipse.lemminx.uber-jar:0.29.0 (325) Component descriptor entry 'OSGI-INF/*.xml' not found
+
+!ENTRY ch.qos.logback.classic 1 0 2025-07-17 08:50:02.556
+!MESSAGE Logback config file: /home/sara/Desktop/projects/staj/sigorta/.metadata/.plugins/org.eclipse.m2e.logback/logback.2.7.0.20241001-1350.xml
+
+!ENTRY org.eclipse.ui 2 0 2025-07-17 08:50:02.916
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2025-07-17 08:50:02.916
+!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
+
+!ENTRY org.eclipse.ui 2 0 2025-07-17 08:50:03.249
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2025-07-17 08:50:03.249
+!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
+
+!ENTRY org.eclipse.mylyn.tasks.ui 2 0 2025-07-17 08:50:06.228
+!MESSAGE No search provider was registered. Tasks search is not available.
+
+!ENTRY org.eclipse.buildship.core 2 1 2025-07-17 08:52:44.318
+!MESSAGE Synchronize project staj failed due to an error while importing the root project.
+!STACK 0
+org.eclipse.buildship.core.internal.ImportRootProjectException: org.eclipse.buildship.core.internal.GradlePluginsRuntimeException: org.eclipse.core.internal.resources.ResourceException: Invalid project description for project 'staj' at 'file:/home/sara/Desktop/projects/staj' 
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation.run(ImportRootProjectOperation.java:53)
+	at org.eclipse.buildship.core.internal.DefaultGradleBuild$SynchronizeOperation.runInToolingApi(DefaultGradleBuild.java:230)
+	at org.eclipse.buildship.core.internal.operation.DefaultToolingApiOperationManager$WorkspaceRunnableAdapter.run(DefaultToolingApiOperationManager.java:58)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.buildship.core.internal.operation.DefaultToolingApiOperationManager.run(DefaultToolingApiOperationManager.java:39)
+	at org.eclipse.buildship.core.internal.DefaultGradleBuild$SynchronizeOperation.run(DefaultGradleBuild.java:197)
+	at org.eclipse.buildship.core.internal.DefaultGradleBuild.synchronize(DefaultGradleBuild.java:105)
+	at org.eclipse.buildship.ui.internal.wizard.project.ProjectImportWizardController$5.run(ProjectImportWizardController.java:213)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: org.eclipse.buildship.core.internal.GradlePluginsRuntimeException: org.eclipse.core.internal.resources.ResourceException: Invalid project description for project 'staj' at 'file:/home/sara/Desktop/projects/staj' 
+	at org.eclipse.buildship.core.internal.workspace.DefaultWorkspaceOperations.createProject(DefaultWorkspaceOperations.java:128)
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation.importRootProject(ImportRootProjectOperation.java:95)
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation$1.run(ImportRootProjectOperation.java:68)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2477)
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation.runInWorkspace(ImportRootProjectOperation.java:58)
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation.run(ImportRootProjectOperation.java:51)
+	... 9 more
+Caused by: org.eclipse.core.internal.resources.ResourceException: Invalid project description for project 'staj' at 'file:/home/sara/Desktop/projects/staj' 
+	at org.eclipse.core.internal.resources.Project.checkDescription(Project.java:211)
+	at org.eclipse.core.internal.resources.Project.assertCreateRequirements(Project.java:95)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:305)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:291)
+	at org.eclipse.buildship.core.internal.workspace.DefaultWorkspaceOperations.createProject(DefaultWorkspaceOperations.java:113)
+	... 15 more
+
+!ENTRY org.eclipse.buildship.core 2 1 2025-07-17 08:52:44.320
+!MESSAGE Synchronize project staj failed due to an error while importing the root project.
+!STACK 0
+org.eclipse.buildship.core.internal.ImportRootProjectException: org.eclipse.buildship.core.internal.GradlePluginsRuntimeException: org.eclipse.core.internal.resources.ResourceException: Invalid project description for project 'staj' at 'file:/home/sara/Desktop/projects/staj' 
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation.run(ImportRootProjectOperation.java:53)
+	at org.eclipse.buildship.core.internal.DefaultGradleBuild$SynchronizeOperation.runInToolingApi(DefaultGradleBuild.java:230)
+	at org.eclipse.buildship.core.internal.operation.DefaultToolingApiOperationManager$WorkspaceRunnableAdapter.run(DefaultToolingApiOperationManager.java:58)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.buildship.core.internal.operation.DefaultToolingApiOperationManager.run(DefaultToolingApiOperationManager.java:39)
+	at org.eclipse.buildship.core.internal.DefaultGradleBuild$SynchronizeOperation.run(DefaultGradleBuild.java:197)
+	at org.eclipse.buildship.core.internal.DefaultGradleBuild.synchronize(DefaultGradleBuild.java:105)
+	at org.eclipse.buildship.ui.internal.wizard.project.ProjectImportWizardController$5.run(ProjectImportWizardController.java:213)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: org.eclipse.buildship.core.internal.GradlePluginsRuntimeException: org.eclipse.core.internal.resources.ResourceException: Invalid project description for project 'staj' at 'file:/home/sara/Desktop/projects/staj' 
+	at org.eclipse.buildship.core.internal.workspace.DefaultWorkspaceOperations.createProject(DefaultWorkspaceOperations.java:128)
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation.importRootProject(ImportRootProjectOperation.java:95)
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation$1.run(ImportRootProjectOperation.java:68)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2477)
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation.runInWorkspace(ImportRootProjectOperation.java:58)
+	at org.eclipse.buildship.core.internal.workspace.ImportRootProjectOperation.run(ImportRootProjectOperation.java:51)
+	... 9 more
+Caused by: org.eclipse.core.internal.resources.ResourceException: Invalid project description for project 'staj' at 'file:/home/sara/Desktop/projects/staj' 
+	at org.eclipse.core.internal.resources.Project.checkDescription(Project.java:211)
+	at org.eclipse.core.internal.resources.Project.assertCreateRequirements(Project.java:95)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:305)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:291)
+	at org.eclipse.buildship.core.internal.workspace.DefaultWorkspaceOperations.createProject(DefaultWorkspaceOperations.java:113)
+	... 15 more
