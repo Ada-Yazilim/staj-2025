@@ -1,53 +1,133 @@
-![Logo](https://www.adayazilim.com/public/dist/img/ada-yazilim-logo.png)
+# SigortaAPI
 
+**SigortaAPI**, Ada Yazılım 2025 Staj Programı kapsamında geliştirilmiş, JWT tabanlı kimlik doğrulama ve yetkilendirme desteğine sahip bir ASP.NET Core Web API projesidir.
 
-# Ada Yazılım - 2025 Staj Programı
+---
 
-**Ada Yazılım** olarak her yıl düzenli olarak gerçekleştirdiğimiz staj programımızın bu yıla ait planlaması aşağıda belirtilen esaslar doğrultusunda yürütülecektir:
+## 📋 İçindekiler
 
-Staj süresi **bir ay** olarak belirlenmiş olup, bu süre zarfında tüm stajyerlerin **sigortacılık alanına yönelik** belirli bir yazılım projesi üzerinde çalışmaları beklenmektedir. Geliştirilecek projenin konusu ve gereksinimleri bu dokümanın devamında ayrıntılı olarak belirtilmiştir. Bununla birlikte, **sigortacılık alanıyla ilişkili** farklı bir proje fikri bulunan stajyerler, bu fikirlerini proje sorumlusu ekip liderine sunmaları ve **onay almaları halinde** kendi projelerini geliştirme yönünde ilerleyebileceklerdir.
+1. [Genel Bakış](#genel-bakış)
+2. [Özellikler](#özellikler)
+3. [Önkoşullar](#önkoşullar)
+4. [Kurulum](#kurulum)
+5. [Yapılandırma](#yapılandırma)
+6. [Çalıştırma](#çalıştırma)
+7. [API Dokümantasyonu](#api-dokümantasyonu)
+8. [Authorization Akışı](#authorization-akışı)
+9. [Unit Testler](#unit-testler)
+10. [Katkıda Bulunma](#katkıda-bulunma)
+11. [Lisans](#lisans)
 
-Proje geliştirme sürecinde kullanılacak teknoloji ve platform seçiminde stajyerlere **serbestlik tanınmaktadır**. Web, mobil veya masaüstü tabanlı uygulamalar geliştirilebilmektedir. Şirket bünyesinde yaygın olarak .NET ve React teknolojileri kullanılmakta olduğundan, bu teknolojilerin tercih edilmesi önerilmektedir. **Ancak stajyerin kendini en yetkin, üretken ve rahat hissettiği teknolojiyi kullanması desteklenmektedir.**
+---
 
-**Staj programının temel amacı teknoloji bilgisini ölçmek değil; algoritma kurma yeteneği, problem çözme becerisi ve proje geliştirme yaklaşımını değerlendirmektir.**
+## 🎯 Genel Bakış
 
-Proje çalışmaları, **Ada Yazılım’a ait GitHub organizasyonu altında her stajyer için ayrılacak bireysel alanlar üzerinden yürütülecektir.** Tüm kodlama ve dokümantasyon süreci bu platform üzerinden yönetilecek; **haftalık ilerlemeler düzenli olarak GitHub’a aktarılacak ve ekip toplantılarında paylaşılacaktır.** Staj dönemi, her stajyerin geliştirme sürecine katkı sağladığı projenin **bireysel sunumu ile tamamlanacaktır.**
+SigortaAPI, sigorta işlemlerini yönetmek için temel CRUD (Create, Read, Update, Delete) endpoint’leri sunan bir servis katmanıdır. Proje, güvenlik ve esneklik amacıyla JWT (JSON Web Token) tabanlı authentication ve role-based authorization ile entegre edilmiştir.
 
+## 🚀 Özellikler
 
-## Proje Konusu ve Amacı
+* ASP.NET Core 8.0 Web API
+* Entity Framework Core ile SQL Server veri erişimi
+* JWT Access & Refresh token üretimi ve yenileme
+* Role-based authorization (Admin, User)
+* Swagger UI ile interaktif API testi
+* Konsistente hata yönetimi (standardize JSON response)
+* Unit test altyapısı
 
-2025 yılı Ada Yazılım staj programı kapsamında geliştirilecek proje, **Sigorta Yönetim Platformu**dur. Bu uygulamanın temel amacı, sigortacılık sektöründe yaygın olarak karşılaşılan süreçleri yazılım ortamına taşımak ve bu süreçlerin yönetimini kolaylaştıran bir sistem geliştirmektir.
+## 🛠️ Önkoşullar
 
-Proje kapsamında aşağıdaki temel modüllerin yer alması beklenmektedir:
+* [.NET 8 SDK](https://dotnet.microsoft.com/download)
+* SQL Server (LocalDB veya tam sürüm)
+* Visual Studio 2022 / VS Code
+* (Opsiyonel) Postman veya benzeri API test aracı
 
-### Kullanıcı Yönetimi ve Yetkilendirme Modülü
-Uygulamaya erişen kullanıcıların kimlik doğrulama süreçlerini ve yetki seviyelerinin yönetilmesini sağlar. Kullanıcıların kayıt olma, giriş yapma, şifre sıfırlama gibi temel işlemleri destekler. Farklı kullanıcı rollerine göre erişim izinleri tanımlanır.
+## ⚙️ Kurulum
 
-### Üretim Modülü
-Kullanıcının sistem üzerinden sigorta teklifi alabilmesi, teklifi onaylaması ve ardından online ödeme adımıyla poliçeleştirme işlemini gerçekleştirebilmesi.
+1. Depoyu klonlayın:
 
-### Müşteri Modülü
-Bireysel ve kurumsal müşterilerin sisteme kaydedilmesi, bilgilerin güncellenmesi ve müşteri bazlı poliçe geçmişinin izlenmesi.
+   ```bash
+   git clone https://github.com/kullaniciAdin/staj-2025.git
+   cd staj-2025/SigortaAPI
+   ```
+2. Bağımlılıkları yükleyin:
 
-### Hasar Modülü
-Poliçe sahibi kullanıcıların hasar bildirimi yapabilmesi, hasar dosyalarının oluşturulması ve sürecin sistem üzerinden takip edilebilmesi.
+   ```bash
+   dotnet restore
+   ```
+3. Veritabanı bağlantısını yapılandırın (bkz. [Yapılandırma](#yapılandırma)).
 
-### Ödeme Modülü
-Sigorta poliçelerinin satın alınması ve yenilenmesi süreçlerindeki ödeme işlemleri bu modülde yönetilir. Kredi kartı vb. ödeme yöntemleri taklit edilerek dummy ödeme süreçleri gerçekleştirilir. Gerçek finansal işlem veya ödeme altyapısı entegre edilmeyecek, sistem işleyişi örnek senaryolar üzerinden simüle edilecektir.
+## 🔧 Yapılandırma
 
-### Raporlama Modülü
-Bu modül, sigorta süreçleri, müşteri işlemleri ve hasar durumlarına ilişkin verilerin analitik olarak sunulmasını sağlar. Grafik ve tablolarla raporlama yapılır.
+`appsettings.json` içinde aşağıdaki placeholder alanları doldurun:
 
-### Döküman Modülü
-Bu modül, poliçe ve müşteri ile ilgili belgelerin yüklenmesi, saklanması ve erişilmesini sağlar. Belgeler sistemde tutulur ancak gerçek dosya yönetimi operasyonları yerine basit örnek/dummy dosyalar ve işlemler kullanılacaktır. Amaç, doküman yönetimi sürecinin temel mantığını göstermek ve pratiğe dökmektir.
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "<YOUR_SQL_SERVER_CONNECTION_STRING>"
+  },
+  "JwtSettings": {
+    "Key": "<YOUR_SECRET_KEY>",
+    "Issuer": "SigortaAPI",
+    "Audience": "SigortaClient",
+    "AccessTokenDurationMinutes": 15,
+    "RefreshTokenDurationDays": 7
+  }
+}
+```
 
-### EK NOT
+## ▶️ Çalıştırma
 
-Unit test veya End-to-End test gibi testler opsiyonel olup, uygulama içerisinde SMS, E-posta, Yapay Zeka (Chatbot/LLM) gibi entegrasyonlar da opsiyonel olarak değerlendirilecektir. Bu tür ek özelliklerin projeye dahil edilmesi **zorunlu olmamakla birlikte**, stajyerlerin teknik yetkinliklerini ve inisiyatiflerini göstermeleri açısından **artı puan** sağlayacaktır.
+Proje klasöründe:
 
-**Staj projesi olarak geliştirilen bu uygulama, gerçek bir üretim (production) ortamında kullanılmak üzere tasarlanmamış olup, sektörel süreçlerin temel prensiplerini anlamak ve uygulamak amacıyla hazırlanmıştır. Dolayısıyla, uygulamanın işleyişi ve kapsamı prototip seviyesinde olup, gerçek dünya koşullarını tamamen yansıtmayabilir.**
+```bash
+dotnet build
+dotnet run
+```
 
-Bu proje ile stajyerlerin, gerçek hayatta karşılığı olan bir sektörel ihtiyacı analiz etme, yazılım mimarisi kurma, modüler bir yapı geliştirme ve iş süreçlerini yazılıma aktarma becerilerini geliştirmeleri hedeflenmektedir. Ayrıca, bu süreçte yazılım geliştirme yaşam döngüsünün temel adımları olan analiz, geliştirme, test ve sürümleme aşamalarını deneyimlemeleri amaçlanmaktadır. Staj programı boyunca kazanılacak bu deneyimlerin, katılımcıların kariyer yolculuğunda sağlam bir temel oluşturacağına inanıyor ve tüm stajyerlerimize projelerini büyük bir heyecan ve sorumlulukla geliştirmelerini diliyoruz.
+Tarayıcıda `https://localhost:<PORT>/swagger` adresine giderek Swagger UI üzerinden API’yi keşfedebilirsiniz.
 
+## 📑 API Dokümantasyonu
 
-### © 2025 Ada Yazılım. Tüm hakları saklıdır.
+**Kullanılabilir Endpoint’ler:**
+
+| Method | Endpoint              | Açıklama                          |
+| ------ | --------------------- | --------------------------------- |
+| POST   | `/api/auth/login`     | Kullanıcı girişi ve token üretimi |
+| POST   | `/api/auth/refresh`   | Refresh token ile token yenileme  |
+| POST   | `/api/auth/register`  | Yeni kullanıcı kaydı              |
+| GET    | `/api/customers`      | Tüm müşterileri listele           |
+| GET    | `/api/customers/{id}` | Belirli müşteri bilgisini getir   |
+| POST   | `/api/customers`      | Yeni müşteri oluştur              |
+| PUT    | `/api/customers/{id}` | Müşteri güncelleme                |
+| DELETE | `/api/customers/{id}` | Müşteri silme                     |
+
+Daha ayrıntılı dokümantasyon için placeholder:
+
+* Örnek istek/giriş payload’ları
+* Örnek cevap yapıları
+
+## 🔐 Authorization Akışı
+
+1. **Token Üretimi:**
+
+   * `POST /api/auth/login` ile Access ve Refresh token’lar oluşturulur.
+2. **Token Doğrulama:**
+
+   * Her istekte HTTP Header’da `Authorization: Bearer <token>` kullanılır.
+3. **Token Yenileme:**
+
+   * `POST /api/auth/refresh` ile geçerli Refresh token sunulur, yeni token çifti alınır.
+4. **Role Kontrolü:**
+   -roller `[Authorize(Policy = "AdminOnly")]` gibi attribute’larla kontrol edilir.
+
+## 🧪 Unit Testler
+
+> **Placeholder:** Unit test projeleri ve test senaryolarının listesi burada yer alacak.
+
+## 🤝 Katkıda Bulunma
+
+> **Placeholder:** Projeye katkı yapma rehberi, PR süreci, kod stili vb.
+
+## 📜 Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakınız.
