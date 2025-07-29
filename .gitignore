@@ -1,3 +1,20 @@
-﻿# Visual Studio önbellekleri
-.vs/
-**/.vs/
+# Build artifacts
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# VSCode settings
+.vscode/
+
+# Rider
+.idea/
+
+# NuGet
+packages/
+*.nupkg
+
+# ASP.NET Secrets
+secrets.json
