@@ -1,11 +1,18 @@
-﻿namespace SigortaAPI.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace SigortaAPI.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public string Role { get; set; }
+        /// <summary>
+        /// Eğer bu User bir müşteri portal hesabı ise, hangi Customer kaydına ait olduğunu belirtir.
+        /// İç ekip (Agent/Admin) hesapları için null kalabilir.
+        /// </summary>
+        public int? CustomerId { get; set; }
+
+        /// <summary>
+        /// İsteğe bağlı navigation property: Bu kullanıcıya ait Customer profili.
+        /// </summary>
+        public Customer? Customer { get; set; }
     }
 }
