@@ -7,6 +7,8 @@ public partial class TAKSITLER
 {
     public int id { get; set; }
 
+    public int? odeme_id { get; set; }
+
     public int police_id { get; set; }
 
     public int taksit_no { get; set; }
@@ -34,6 +36,8 @@ public partial class TAKSITLER
     public DateTime olusturma_tarihi { get; set; }
 
     public virtual ICollection<ODEMELER> ODEMELERs { get; set; } = new List<ODEMELER>();
+
+    public virtual ODEMELER? odeme { get; set; }
 
     public virtual DURUM_TANIMLARI durum { get; set; } = null!;
 

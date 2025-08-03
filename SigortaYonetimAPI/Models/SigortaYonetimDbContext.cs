@@ -32,15 +32,11 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
 
     public virtual DbSet<KULLANICILAR> KULLANICILARs { get; set; }
 
-    public virtual DbSet<KULLANICI_ROLLER> KULLANICI_ROLLERs { get; set; }
-
     public virtual DbSet<MUSTERILER> MUSTERILERs { get; set; }
 
     public virtual DbSet<MUSTERI_ILETISIM_TERCIHLERI> MUSTERI_ILETISIM_TERCIHLERIs { get; set; }
 
     public virtual DbSet<ODEMELER> ODEMELERs { get; set; }
-
-    public virtual DbSet<OTURUM_KAYITLARI> OTURUM_KAYITLARIs { get; set; }
 
     public virtual DbSet<POLICE_TEKLIFLERI> POLICE_TEKLIFLERIs { get; set; }
 
@@ -49,8 +45,6 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
     public virtual DbSet<POLISELER> POLISELERs { get; set; }
 
     public virtual DbSet<RAPOR_SABLONLARI> RAPOR_SABLONLARIs { get; set; }
-
-    public virtual DbSet<ROLLER> ROLLERs { get; set; }
 
     public virtual DbSet<SIFRE_SIFIRLAMA> SIFRE_SIFIRLAMAs { get; set; }
 
@@ -222,6 +216,7 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
             entity.Property(e => e.polis_raporu_var_mi).HasDefaultValue(false);
             entity.Property(e => e.red_nedeni).HasMaxLength(255);
             entity.Property(e => e.talep_edilen_tutar).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.toplam_tutar).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.tanik_bilgileri).HasMaxLength(255);
 
             entity.HasOne(d => d.bildiren_kullanici).WithMany(p => p.HASAR_DOSYALARbildiren_kullanicis)
@@ -341,27 +336,7 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
                 .HasConstraintName("FK__KULLANICI__durum__412EB0B6");
         });
 
-        modelBuilder.Entity<KULLANICI_ROLLER>(entity =>
-        {
-            entity.HasKey(e => new { e.kullanici_id, e.rol_id }).HasName("PK__KULLANIC__B3FDED46B4288BFB");
 
-            entity.ToTable("KULLANICI_ROLLER");
-
-            entity.Property(e => e.atanma_tarihi)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.bitis_tarihi).HasColumnType("datetime");
-
-            entity.HasOne(d => d.kullanici).WithMany(p => p.KULLANICI_ROLLERs)
-                .HasForeignKey(d => d.kullanici_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__KULLANICI__kulla__5629CD9C");
-
-            entity.HasOne(d => d.rol).WithMany(p => p.KULLANICI_ROLLERs)
-                .HasForeignKey(d => d.rol_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__KULLANICI__rol_i__571DF1D5");
-        });
 
         modelBuilder.Entity<MUSTERILER>(entity =>
         {
@@ -379,7 +354,6 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
             entity.Property(e => e.aylik_gelir).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.blacklist_mi).HasDefaultValue(false);
             entity.Property(e => e.blacklist_nedeni).HasMaxLength(255);
-            entity.Property(e => e.cep_telefonu).HasMaxLength(20);
             entity.Property(e => e.eposta).HasMaxLength(100);
             entity.Property(e => e.guncelleme_tarihi)
                 .HasDefaultValueSql("(getdate())")
@@ -392,11 +366,9 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
             entity.Property(e => e.musteri_no).HasMaxLength(30);
             entity.Property(e => e.not_bilgileri).HasMaxLength(255);
             entity.Property(e => e.posta_kodu).HasMaxLength(10);
-            entity.Property(e => e.sirket_adi).HasMaxLength(100);
             entity.Property(e => e.soyad).HasMaxLength(50);
             entity.Property(e => e.tc_kimlik_no).HasMaxLength(11);
             entity.Property(e => e.telefon).HasMaxLength(20);
-            entity.Property(e => e.vergi_no).HasMaxLength(20);
 
             entity.HasOne(d => d.cinsiyet).WithMany(p => p.MUSTERILERcinsiyets)
                 .HasForeignKey(d => d.cinsiyet_id)
@@ -413,11 +385,6 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
             entity.HasOne(d => d.medeni_durum).WithMany(p => p.MUSTERILERmedeni_durums)
                 .HasForeignKey(d => d.medeni_durum_id)
                 .HasConstraintName("FK__MUSTERILE__meden__6477ECF3");
-
-            entity.HasOne(d => d.tip).WithMany(p => p.MUSTERILERtips)
-                .HasForeignKey(d => d.tip_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MUSTERILE__tip_i__628FA481");
         });
 
         modelBuilder.Entity<MUSTERI_ILETISIM_TERCIHLERI>(entity =>
@@ -460,6 +427,7 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
             entity.Property(e => e.pos_referans_no).HasMaxLength(50);
             entity.Property(e => e.tahsil_tarihi).HasColumnType("datetime");
             entity.Property(e => e.tutar).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.taksit_tutari).HasColumnType("decimal(18, 2)");
 
             entity.HasOne(d => d.durum).WithMany(p => p.ODEMELERdurums)
                 .HasForeignKey(d => d.durum_id)
@@ -492,26 +460,7 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
                 .HasConstraintName("FK__ODEMELER__taksit__2A164134");
         });
 
-        modelBuilder.Entity<OTURUM_KAYITLARI>(entity =>
-        {
-            entity.HasKey(e => e.id).HasName("PK__OTURUM_K__3213E83F26126F0C");
 
-            entity.ToTable("OTURUM_KAYITLARI");
-
-            entity.Property(e => e.baslangic_tarihi)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.bitis_tarihi).HasColumnType("datetime");
-            entity.Property(e => e.cihaz_bilgisi).HasMaxLength(255);
-            entity.Property(e => e.ip_adresi).HasMaxLength(50);
-            entity.Property(e => e.oturum_token).HasMaxLength(255);
-            entity.Property(e => e.tarayici_bilgisi).HasMaxLength(255);
-
-            entity.HasOne(d => d.kullanici).WithMany(p => p.OTURUM_KAYITLARIs)
-                .HasForeignKey(d => d.kullanici_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OTURUM_KA__kulla__5AEE82B9");
-        });
 
         modelBuilder.Entity<POLICE_TEKLIFLERI>(entity =>
         {
@@ -692,21 +641,7 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
                 .HasConstraintName("FK__RAPOR_SAB__zaman__531856C7");
         });
 
-        modelBuilder.Entity<ROLLER>(entity =>
-        {
-            entity.HasKey(e => e.id).HasName("PK__ROLLER__3213E83FBF71C4FA");
 
-            entity.ToTable("ROLLER");
-
-            entity.HasIndex(e => e.rol_adi, "UQ__ROLLER__604EFF73B1DE8834").IsUnique();
-
-            entity.Property(e => e.aciklama).HasMaxLength(255);
-            entity.Property(e => e.aktif_mi).HasDefaultValue(true);
-            entity.Property(e => e.olusturma_tarihi)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.rol_adi).HasMaxLength(50);
-        });
 
         modelBuilder.Entity<SIFRE_SIFIRLAMA>(entity =>
         {
@@ -744,7 +679,6 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
             entity.Property(e => e.sozlesme_baslangic).HasColumnType("datetime");
             entity.Property(e => e.sozlesme_bitis).HasColumnType("datetime");
             entity.Property(e => e.telefon).HasMaxLength(20);
-            entity.Property(e => e.vergi_no).HasMaxLength(20);
         });
 
         modelBuilder.Entity<SISTEM_LOGLARI>(entity =>
@@ -814,26 +748,11 @@ public partial class SigortaYonetimDbContext : IdentityDbContext<ApplicationUser
                 .HasForeignKey(d => d.KullanicilarId)
                 .OnDelete(DeleteBehavior.SetNull);
                 
-            // MUSTERILER tablosu ile ilişki    
-            entity.HasOne(d => d.Musteri)
-                .WithOne(p => p.ApplicationUser)
-                .HasForeignKey<ApplicationUser>(d => d.MusteriId)
-                .OnDelete(DeleteBehavior.SetNull);
-                
             // Hierarchical relationship (Yönetici-Ast ilişkisi)
             entity.HasOne(d => d.Yonetici)
                 .WithMany(p => p.AstKullanicilar)
                 .HasForeignKey(d => d.YoneticiId)
-                .OnDelete(DeleteBehavior.SetNull);
-        });
-        
-        modelBuilder.Entity<MUSTERILER>(entity =>
-        {
-            // ApplicationUser ile ilişki
-            entity.HasOne(d => d.ApplicationUser)
-                .WithOne(p => p.Musteri)
-                .HasForeignKey<MUSTERILER>(d => d.ApplicationUserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
         });
 
         OnModelCreatingPartial(modelBuilder);

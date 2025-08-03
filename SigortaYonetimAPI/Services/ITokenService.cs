@@ -5,8 +5,8 @@ namespace SigortaYonetimAPI.Services
     public interface ITokenService
     {
         Task<string> GenerateJwtTokenAsync(ApplicationUser user);
-        Task<string> GenerateRefreshTokenAsync();
-        Task<bool> ValidateTokenAsync(string token);
-        Task<string> RefreshTokenAsync(string token, string refreshToken);
+        string GenerateRefreshToken();
+        bool ValidateToken(string token);
+        string RefreshToken(string token, string refreshToken);
     }
 } 

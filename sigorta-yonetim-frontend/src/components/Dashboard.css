@@ -1902,3 +1902,278 @@
     grid-template-columns: 1fr;
   }
 } 
+
+/* Profil Modal Styles */
+.large-modal {
+  max-width: 800px !important;
+  max-height: 90vh !important;
+  overflow-y: auto;
+}
+
+.profil-form {
+  padding: 1rem;
+}
+
+.profil-form .form-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.profil-form .form-section h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+.profil-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profil-form .form-row:last-child {
+  margin-bottom: 0;
+}
+
+.profil-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.profil-form .form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.profil-form .form-group input,
+.profil-form .form-group select,
+.profil-form .form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.profil-form .form-group input:focus,
+.profil-form .form-group select:focus,
+.profil-form .form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.profil-form .form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.profil-form .form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Profil Tamamlama Modal */
+.profil-tamamlama-modal .modal-content {
+  max-width: 600px;
+}
+
+.profil-tamamlama-modal .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profil-tamamlama-modal .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.profil-tamamlama-modal .form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.profil-tamamlama-modal .form-group input,
+.profil-tamamlama-modal .form-group select,
+.profil-tamamlama-modal .form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.profil-tamamlama-modal .form-group input:focus,
+.profil-tamamlama-modal .form-group select:focus,
+.profil-tamamlama-modal .form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.profil-tamamlama-modal .form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Responsive Design for Profile Modals */
+@media (max-width: 768px) {
+  .large-modal {
+    max-width: 95vw !important;
+    margin: 1rem;
+  }
+  
+  .profil-form .form-row,
+  .profil-tamamlama-modal .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .profil-form .form-section,
+  .profil-tamamlama-modal .form-section {
+    padding: 1rem;
+  }
+  
+  .profil-form .form-actions {
+    flex-direction: column;
+  }
+}
+
+/* Scrollbar Styling for Large Modals */
+.large-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.large-modal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.large-modal::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.large-modal::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Bildirim Stilleri */
+.notification-badge {
+  background: #ff4757;
+  color: white;
+  border-radius: 50%;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  min-width: 1.2rem;
+  text-align: center;
+  display: inline-block;
+}
+
+.bildirimler-grid {
+  padding: 1rem 0;
+}
+
+.bildirimler-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bildirim-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-left: 4px solid #ddd;
+}
+
+.bildirim-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.bildirim-card.unread {
+  border-left-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(255, 255, 255, 0.95) 100%);
+}
+
+.bildirim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.bildirim-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.bildirim-details {
+  margin-bottom: 1rem;
+}
+
+.bildirim-content {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.bildirim-date {
+  color: #999;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.bildirim-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.status-badge.read {
+  background: #51cf66;
+  color: white;
+}
+
+.status-badge.unread {
+  background: #667eea;
+  color: white;
+}
+
+/* Responsive Bildirim Stilleri */
+@media (max-width: 768px) {
+  .bildirim-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .bildirim-actions {
+    flex-direction: column;
+  }
+  
+  .bildirim-actions .btn {
+    width: 100%;
+  }
+} 

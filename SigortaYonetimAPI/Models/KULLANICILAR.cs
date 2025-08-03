@@ -47,13 +47,9 @@ public partial class KULLANICILAR
 
     public virtual ICollection<KOMISYON_HESAPLARI> KOMISYON_HESAPLARIs { get; set; } = new List<KOMISYON_HESAPLARI>();
 
-    public virtual ICollection<KULLANICI_ROLLER> KULLANICI_ROLLERs { get; set; } = new List<KULLANICI_ROLLER>();
-
     public virtual ICollection<MUSTERILER> MUSTERILERs { get; set; } = new List<MUSTERILER>();
 
     public virtual ICollection<ODEMELER> ODEMELERs { get; set; } = new List<ODEMELER>();
-
-    public virtual ICollection<OTURUM_KAYITLARI> OTURUM_KAYITLARIs { get; set; } = new List<OTURUM_KAYITLARI>();
 
     public virtual ICollection<POLICE_TEKLIFLERI> POLICE_TEKLIFLERIs { get; set; } = new List<POLICE_TEKLIFLERI>();
 

@@ -11,6 +11,8 @@ interface User {
   kullanicilarId?: number;
   kayitTarihi?: string;
   emailDogrulandi?: boolean;
+  // MUSTERILER tablosu ile entegrasyon (KULLANICI rolü için)
+  musteriId?: number;
 }
 
 interface AuthContextType {
@@ -29,7 +31,20 @@ interface RegisterData {
   email: string;
   password: string;
   confirmPassword: string;
-  telefon?: string;
+  telefon: string;
+  // Müşteri bilgileri - artık tüm müşteriler için ortak
+  tcKimlikNo?: string;
+  dogumTarihi?: string;
+  cinsiyet?: number;
+  medeniDurum?: number;
+  meslek?: string;
+  egitimDurumu?: number;
+  aylikGelir?: number;
+  adresIl: string;
+  adresIlce: string;
+  adresMahalle: string;
+  adresDetay: string;
+  postaKodu?: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -100,6 +115,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const register = async (data: RegisterData): Promise<{ success: boolean; message: string }> => {
     try {
+      console.log('AuthContext: Register API çağrısı başlıyor...');
+      console.log('AuthContext: Gönderilen data:', data);
+
       const response = await fetch('http://localhost:5000/api/Auth/register', {
         method: 'POST',
         headers: {
@@ -108,9 +126,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         body: JSON.stringify(data),
       });
 
+      console.log('AuthContext: API yanıtı status:', response.status);
+      console.log('AuthContext: API yanıtı headers:', response.headers);
+
       const result = await response.json();
+      console.log('AuthContext: API yanıtı body:', result);
 
       if (result.success && result.token) {
+        console.log('AuthContext: Kayıt başarılı, otomatik giriş yapılıyor...');
         // Kayıt başarılı, otomatik giriş yap
         setToken(result.token);
         setUser(result.user);
@@ -119,11 +142,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         return { success: true, message: result.message };
       } else {
-        return { success: false, message: result.message || 'Kayıt başarısız' };
+        console.log('AuthContext: Kayıt başarısız:', result.message);
+        let errorMessage = result.message || 'Kayıt başarısız';
+        
+        // HTTP status koduna göre daha açıklayıcı mesajlar
+        if (response.status === 400) {
+          errorMessage = `Geçersiz veri: ${result.message}`;
+        } else if (response.status === 500) {
+          errorMessage = `Sunucu hatası: ${result.message}`;
+        } else if (response.status === 0) {
+          errorMessage = 'Sunucuya bağlanılamıyor. Backend çalışıyor mu?';
+        }
+        
+        return { success: false, message: errorMessage };
       }
     } catch (error) {
-      console.error('Register error:', error);
-      return { success: false, message: 'Sunucu hatası oluştu' };
+      console.error('AuthContext: Register error:', error);
+      let errorMessage = 'Sunucu hatası oluştu';
+      
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        errorMessage = 'Sunucuya bağlanılamıyor. Backend çalışıyor mu?';
+      } else if (error instanceof Error) {
+        errorMessage = `Hata: ${error.message}`;
+      }
+      
+      return { success: false, message: errorMessage };
     }
   };
 

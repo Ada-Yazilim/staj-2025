@@ -7,6 +7,8 @@ public partial class ODEMELER
 {
     public int id { get; set; }
 
+    public string? odeme_no { get; set; }
+
     public int? taksit_id { get; set; }
 
     public int? police_id { get; set; }
@@ -17,9 +19,13 @@ public partial class ODEMELER
 
     public int? odeme_tipi_id { get; set; }
 
+    public string? odeme_turu { get; set; }
+
     public DateTime odeme_tarihi { get; set; }
 
     public decimal tutar { get; set; }
+
+    public DateTime? vade_tarihi { get; set; }
 
     public int? odeme_yontemi_id { get; set; }
 
@@ -48,6 +54,10 @@ public partial class ODEMELER
     public string? fis_no { get; set; }
 
     public DateTime olusturma_tarihi { get; set; }
+
+    public int? taksit_sayisi { get; set; }
+
+    public decimal? taksit_tutari { get; set; }
 
     public virtual DURUM_TANIMLARI durum { get; set; } = null!;
 

@@ -55,7 +55,7 @@ namespace SigortaYonetimAPI.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<string> GenerateRefreshTokenAsync()
+        public string GenerateRefreshToken()
         {
             var randomNumber = new byte[64];
             using var rng = RandomNumberGenerator.Create();
@@ -63,7 +63,7 @@ namespace SigortaYonetimAPI.Services
             return Convert.ToBase64String(randomNumber);
         }
 
-        public async Task<bool> ValidateTokenAsync(string token)
+        public bool ValidateToken(string token)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace SigortaYonetimAPI.Services
             }
         }
 
-        public async Task<string> RefreshTokenAsync(string token, string refreshToken)
+        public string RefreshToken(string token, string refreshToken)
         {
             // Bu implementasyon daha karmaşık olacak, şimdilik basit bir yaklaşım
             // Production'da refresh token'ları veritabanında saklamak gerekir
