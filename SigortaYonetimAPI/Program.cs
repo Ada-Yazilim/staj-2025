@@ -9,7 +9,12 @@ using SigortaYonetimAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.MaxDepth = 32;
+    });
 
 // CORS ayarları ekle
 builder.Services.AddCors(options =>
@@ -90,7 +95,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// HTTPS redirect'i devre dışı bırak (sadece HTTP kullan)
+// app.UseHttpsRedirection();
 
 // CORS middleware'ini ekle
 app.UseCors("AllowReactApp");
@@ -101,29 +107,48 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Rolleri oluştur
+// Veritabanı seed verilerini oluştur
 using (var scope = app.Services.CreateScope())
 {
+    var context = scope.ServiceProvider.GetRequiredService<SigortaYonetimDbContext>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     
-    var roles = new[] { "ADMIN", "ACENTE", "KULLANICI" };
-    
-    foreach (var role in roles)
+    try
     {
-        if (!await roleManager.RoleExistsAsync(role))
+        // Veritabanı yoksa oluştur
+        if (!await context.Database.CanConnectAsync())
         {
-            await roleManager.CreateAsync(new ApplicationRole 
-            { 
-                Name = role,
-                Aciklama = role switch
-                {
-                    "ADMIN" => "Sistem Yöneticisi",
-                    "ACENTE" => "Acente Kullanıcısı", 
-                    "KULLANICI" => "Normal Kullanıcı",
-                    _ => ""
-                }
-            });
+            await context.Database.EnsureCreatedAsync();
         }
+        
+        // Seed verilerini oluştur
+        await SeedData.InitializeAsync(app.Services);
+        
+        // Rolleri oluştur (eğer yoksa)
+        var roles = new[] { "ADMIN", "ACENTE", "KULLANICI" };
+        
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new ApplicationRole 
+                { 
+                    Name = role,
+                    Aciklama = role switch
+                    {
+                        "ADMIN" => "Sistem Yöneticisi",
+                        "ACENTE" => "Acente Kullanıcısı", 
+                        "KULLANICI" => "Normal Kullanıcı",
+                        _ => ""
+                    }
+                });
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Veritabanı hazırlanırken hata: {ex.Message}");
     }
 }
 

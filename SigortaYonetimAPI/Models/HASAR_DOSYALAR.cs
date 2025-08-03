@@ -9,6 +9,8 @@ public partial class HASAR_DOSYALAR
 
     public string hasar_no { get; set; } = null!;
 
+    public string? dosya_no { get; set; }
+
     public int police_id { get; set; }
 
     public int musteri_id { get; set; }
@@ -45,6 +47,8 @@ public partial class HASAR_DOSYALAR
 
     public decimal? odenen_tutar { get; set; }
 
+    public decimal? toplam_tutar { get; set; }
+
     public string? red_nedeni { get; set; }
 
     public int? sorumlu_eksper_id { get; set; }
@@ -61,7 +65,11 @@ public partial class HASAR_DOSYALAR
 
     public DateTime guncelleme_tarihi { get; set; }
 
+    public DateTime olusturma_tarihi { get; set; }
+
     public string? notlar { get; set; }
+
+    public string? aciklama { get; set; }
 
     public virtual ICollection<HASAR_TAKIP_NOTLARI> HASAR_TAKIP_NOTLARIs { get; set; } = new List<HASAR_TAKIP_NOTLARI>();
 

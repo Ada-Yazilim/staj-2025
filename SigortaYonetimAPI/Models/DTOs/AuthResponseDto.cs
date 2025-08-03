@@ -23,5 +23,8 @@ namespace SigortaYonetimAPI.Models.DTOs
         public int? KullanicilarId { get; set; }
         public DateTime? KayitTarihi { get; set; }
         public bool EmailDogrulandi { get; set; }
+        
+        // MUSTERILER tablosu ile entegrasyon (KULLANICI rolü için)
+        public int? MusteriId { get; set; }
     }
 } 

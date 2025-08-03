@@ -136,7 +136,6 @@ interface MusteriDetayDto {
   tc_kimlik_no?: string;
   eposta?: string;
   telefon?: string;
-  cep_telefonu?: string;
   dogum_tarihi?: string;
   cinsiyet_id?: number;
   cinsiyet_adi?: string;
@@ -172,7 +171,6 @@ interface MusteriCreateDto {
   tc_kimlik_no?: string;
   eposta?: string;
   telefon?: string;
-  cep_telefonu?: string;
   dogum_tarihi?: string;
   cinsiyet_id?: number;
   medeni_durum_id?: number;
@@ -224,6 +222,211 @@ interface LookupData {
   cinsiyetler: Array<{id: number; text: string}>;
   medeni_durumlar: Array<{id: number; text: string}>;
   egitim_durumlari: Array<{id: number; text: string}>;
+}
+
+// Poliçe Teklifi Interface'leri
+interface PoliceTeklifListDto {
+  id: number;
+  teklif_no: string;
+  musteri_adi: string;
+  police_turu_adi: string;
+  sigorta_sirketi_adi: string;
+  brut_prim?: number;
+  net_prim?: number;
+  toplam_tutar?: number;
+  durum_adi: string;
+  teklif_tarihi: string;
+  gecerlilik_tarihi?: string;
+  olusturan_kullanici: string;
+}
+
+interface PoliceTeklifDetayDto {
+  id: number;
+  teklif_no: string;
+  musteri_id: number;
+  musteri_adi: string;
+  police_turu_id: number;
+  police_turu_adi: string;
+  sigorta_sirketi_id: number;
+  sigorta_sirketi_adi: string;
+  olusturan_kullanici_id: number;
+  olusturan_kullanici: string;
+  risk_bilgileri?: string;
+  teminat_bilgileri?: string;
+  brut_prim?: number;
+  net_prim?: number;
+  komisyon_tutari?: number;
+  vergi_tutari?: number;
+  toplam_tutar?: number;
+  durum_id: number;
+  durum_adi: string;
+  teklif_tarihi: string;
+  gecerlilik_tarihi?: string;
+  onay_tarihi?: string;
+  onaylayan_kullanici?: string;
+  red_nedeni?: string;
+  notlar?: string;
+  olusturma_tarihi: string;
+  guncelleme_tarihi: string;
+}
+
+interface PoliceTeklifCreateDto {
+  musteri_id: number;
+  police_turu_id: number;
+  sigorta_sirketi_id: number;
+  risk_bilgileri?: string;
+  teminat_bilgileri?: string;
+  brut_prim?: number;
+  net_prim?: number;
+  komisyon_tutari?: number;
+  vergi_tutari?: number;
+  toplam_tutar?: number;
+  notlar?: string;
+}
+
+// Poliçe Interface'leri
+interface PoliceListDto {
+  id: number;
+  police_no: string;
+  musteri_adi: string;
+  police_turu_adi: string;
+  sigorta_sirketi_adi: string;
+  baslangic_tarihi: string;
+  bitis_tarihi: string;
+  brut_prim?: number;
+  net_prim?: number;
+  toplam_tutar?: number;
+  durum_adi: string;
+  tanzim_tarihi: string;
+  tanzim_eden_kullanici: string;
+  teklif_no?: string;
+}
+
+interface PoliceDetayDto {
+  id: number;
+  police_no: string;
+  teklif_id?: number;
+  teklif_no?: string;
+  musteri_id: number;
+  musteri_adi: string;
+  police_turu_id: number;
+  police_turu_adi: string;
+  sigorta_sirketi_id: number;
+  sigorta_sirketi_adi: string;
+  tanzim_eden_kullanici_id: number;
+  tanzim_eden_kullanici: string;
+  risk_bilgileri?: string;
+  teminat_bilgileri?: string;
+  baslangic_tarihi: string;
+  bitis_tarihi: string;
+  brut_prim?: number;
+  net_prim?: number;
+  komisyon_tutari?: number;
+  vergi_tutari?: number;
+  toplam_tutar?: number;
+  taksit_sayisi?: number;
+  durum_id: number;
+  durum_adi: string;
+  iptal_nedeni?: string;
+  iptal_tarihi?: string;
+  yenileme_hatirlatma_tarihi?: string;
+  ozel_sartlar?: string;
+  notlar?: string;
+  tanzim_tarihi: string;
+  guncelleme_tarihi: string;
+}
+
+interface PoliceCreateDto {
+  teklif_id?: number;
+  musteri_id: number;
+  police_turu_id: number;
+  sigorta_sirketi_id: number;
+  risk_bilgileri?: string;
+  teminat_bilgileri?: string;
+  baslangic_tarihi: Date;
+  bitis_tarihi: Date;
+  brut_prim?: number;
+  net_prim?: number;
+  komisyon_tutari?: number;
+  vergi_tutari?: number;
+  toplam_tutar?: number;
+  taksit_sayisi?: number;
+  ozel_sartlar?: string;
+  notlar?: string;
+}
+
+// Poliçe Lookup Data
+interface PoliceLookupData {
+  police_turleri: Array<{id: number; text: string}>;
+  sigorta_sirketleri: Array<{id: number; text: string}>;
+  durumlar: Array<{id: number; text: string}>;
+}
+
+// Ödeme Interface'leri
+interface OdemeListDto {
+  id: number;
+  odeme_no: string;
+  police_no: string;
+  musteri_adi: string;
+  odeme_turu: string;
+  tutar: number;
+  durum_adi: string;
+  odeme_tarihi: string;
+  vade_tarihi: string;
+}
+
+interface OdemeDetayDto {
+  id: number;
+  odeme_no: string;
+  police_id: number;
+  police_no: string;
+  musteri_id: number;
+  musteri_adi: string;
+  odeme_turu: string;
+  tutar: number;
+  durum_id: number;
+  durum_adi: string;
+  odeme_tarihi: string;
+  vade_tarihi: string;
+  aciklama?: string;
+  taksit_sayisi: number;
+  taksit_tutari: number;
+  taksitler: TaksitDto[];
+}
+
+interface OdemeCreateDto {
+  police_id: number;
+  odeme_turu: string;
+  tutar: number;
+  vade_tarihi: Date;
+  aciklama?: string;
+  taksit_sayisi: number;
+}
+
+interface TaksitDto {
+  id: number;
+  taksit_no: number;
+  tutar: number;
+  vade_tarihi: string;
+  odeme_tarihi?: string;
+  durum_adi: string;
+}
+
+interface TaksitOdemeDto {
+  taksit_id: number;
+  kart_no: string;
+  son_kullanma_tarihi: string;
+  cvv: string;
+  kart_sahibi: string;
+}
+
+interface BildirimDto {
+  id: number;
+  alici_kullanici_id: number;
+  baslik: string;
+  icerik: string;
+  gonderim_tarihi: string;
+  okundu_mu: boolean;
 }
 
 // 🔧 USERMODAL COMPONENT - Gelişmiş Kullanıcı Modal'ları
@@ -649,7 +852,7 @@ const Dashboard: React.FC = () => {
   const [userAudit, setUserAudit] = useState<UserAudit | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'create' | 'reports' | 'security' | 'hierarchy' | 'customers' | 'sales' | 'commission' | 'policies' | 'claims'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'create' | 'reports' | 'security' | 'hierarchy' | 'customers' | 'sales' | 'commission' | 'policies' | 'claims' | 'teklifler' | 'payments' | 'documents' | 'notifications'>('overview');
   const [userModal, setUserModal] = useState<{type: 'view' | 'edit' | 'performance' | 'audit' | 'security' | null, user?: AdminUser}>({type: null});
   const [filters, setFilters] = useState({
     search: '',
@@ -691,6 +894,56 @@ const Dashboard: React.FC = () => {
   });
   const [musteriTotalCount, setMusteriTotalCount] = useState(0);
   const [musteriLoading, setMusteriLoading] = useState(false);
+  const [musteriError, setMusteriError] = useState<string | null>(null);
+  const [musteriCreateError, setMusteriCreateError] = useState<string | null>(null);
+
+  // Poliçe Teklifi State'leri
+  const [policeTeklifleri, setPoliceTeklifleri] = useState<PoliceTeklifListDto[]>([]);
+  const [selectedTeklif, setSelectedTeklif] = useState<PoliceTeklifDetayDto | null>(null);
+  const [policeLookupData, setPoliceLookupData] = useState<PoliceLookupData | null>(null);
+  const [teklifModal, setTeklifModal] = useState<{
+    type: 'create' | 'edit' | 'view' | null;
+    teklif?: PoliceTeklifDetayDto;
+  }>({ type: null });
+  const [teklifCreateForm, setTeklifCreateForm] = useState<PoliceTeklifCreateDto>({
+    musteri_id: 0,
+    police_turu_id: 0,
+    sigorta_sirketi_id: 0
+  });
+
+  // Poliçe State'leri
+  const [poliseler, setPoliseler] = useState<PoliceListDto[]>([]);
+  const [selectedPolice, setSelectedPolice] = useState<PoliceDetayDto | null>(null);
+  const [policeModal, setPoliceModal] = useState<{
+    type: 'create' | 'edit' | 'view' | null;
+    police?: PoliceDetayDto;
+  }>({ type: null });
+  const [policeCreateForm, setPoliceCreateForm] = useState<PoliceCreateDto>({
+    musteri_id: 0,
+    police_turu_id: 0,
+    sigorta_sirketi_id: 0,
+    baslangic_tarihi: new Date(),
+    bitis_tarihi: new Date()
+  });
+
+  // Ödeme State'leri
+  const [odemeler, setOdemeler] = useState<OdemeListDto[]>([]);
+  const [selectedOdeme, setSelectedOdeme] = useState<OdemeDetayDto | null>(null);
+  const [odemeModal, setOdemeModal] = useState<{
+    type: 'create' | 'edit' | 'view' | 'taksit-odeme' | null;
+    odeme?: OdemeDetayDto;
+  }>({ type: null });
+  const [odemeCreateForm, setOdemeCreateForm] = useState<OdemeCreateDto>({
+    police_id: 0,
+    odeme_turu: 'Peşin',
+    tutar: 0,
+    vade_tarihi: new Date(),
+    taksit_sayisi: 1
+  });
+
+  // Bildirim State'leri
+  const [bildirimler, setBildirimler] = useState<any[]>([]);
+  const [bildirimSayisi, setBildirimSayisi] = useState(0);
 
   const { user, logout, token } = useAuth();
 
@@ -701,6 +954,7 @@ const Dashboard: React.FC = () => {
   // Müşteri Modülü API Fonksiyonları
   const fetchMusteriler = async () => {
     try {
+      setMusteriError(null);
       setMusteriLoading(true);
       const queryParams = new URLSearchParams({
         sayfa: musteriSearchParams.sayfa.toString(),
@@ -710,17 +964,19 @@ const Dashboard: React.FC = () => {
         ...(musteriSearchParams.tip_id && { tip_id: musteriSearchParams.tip_id.toString() }),
         ...(musteriSearchParams.blacklist_mi !== undefined && { blacklist_mi: musteriSearchParams.blacklist_mi.toString() }),
       });
-
       const response = await fetch(`http://localhost:5000/api/Musteriler?${queryParams}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-
       if (response.ok) {
         const data = await response.json();
-        if (Array.isArray(data.Data)) {
+        console.log('API müşteri listesi:', data);
+        if (Array.isArray(data.data)) {
+          setMusteriler(data.data);
+          setMusteriTotalCount(data.totalCount || data.data.length);
+        } else if (Array.isArray(data.Data)) {
           setMusteriler(data.Data);
           setMusteriTotalCount(data.TotalCount || data.Data.length);
         } else if (Array.isArray(data)) {
@@ -733,11 +989,14 @@ const Dashboard: React.FC = () => {
       } else {
         setMusteriler([]);
         setMusteriTotalCount(0);
-        console.error('Müşteriler getirilemedi:', response.status);
+        const errorText = await response.text();
+        setMusteriError(`API Hatası: ${response.status} - ${errorText}`);
+        console.error('Müşteriler getirilemedi:', response.status, errorText);
       }
-    } catch (err) {
+    } catch (err: any) {
       setMusteriler([]);
       setMusteriTotalCount(0);
+      setMusteriError('Müşteri API hatası: ' + (err?.message || err));
       console.error('Müşteri API hatası:', err);
     } finally {
       setMusteriLoading(false);
@@ -771,7 +1030,6 @@ const Dashboard: React.FC = () => {
           'Content-Type': 'application/json'
         }
       });
-
       if (response.ok) {
         const stats = await response.json();
         setMusteriIstatistikleri(stats);
@@ -789,7 +1047,6 @@ const Dashboard: React.FC = () => {
           'Content-Type': 'application/json'
         }
       });
-
       if (response.ok) {
         const data = await response.json();
         setLookupData(data);
@@ -910,7 +1167,9 @@ const Dashboard: React.FC = () => {
 
   // Müşteri sekmesi için data loading
   useEffect(() => {
+    console.log('useEffect customers:', { activeTab, isAdmin, isAcente });
     if (activeTab === 'customers' && (isAdmin || isAcente)) {
+      console.log('Müşteri sekmesi aktif, veriler yükleniyor...');
       fetchLookupData();
       fetchMusteriler();
       fetchMusteriIstatistikleri();
@@ -923,6 +1182,382 @@ const Dashboard: React.FC = () => {
       fetchMusteriler();
     }
   }, [musteriSearchParams]);
+
+  // Poliçe teklifi sekmesi için data loading
+  useEffect(() => {
+    if (activeTab === 'teklifler' && (isAdmin || isAcente)) {
+      fetchPoliceLookupData();
+      fetchPoliceTeklifleri();
+    }
+  }, [activeTab, isAdmin, isAcente]);
+
+  // Poliçe sekmesi için data loading
+  useEffect(() => {
+    if (activeTab === 'policies' && (isAdmin || isAcente)) {
+      fetchPoliceLookupData();
+      fetchPoliseler();
+    }
+  }, [activeTab, isAdmin, isAcente]);
+
+  // Ödeme sekmesi için data loading
+  useEffect(() => {
+    if (activeTab === 'payments' && (isAdmin || isAcente)) {
+      fetchOdemeler();
+    }
+  }, [activeTab, isAdmin, isAcente]);
+
+  // KULLANICI için data loading
+  useEffect(() => {
+    if (isKullanici) {
+      if (activeTab === 'teklifler') {
+        fetchPoliceTeklifleri();
+      } else if (activeTab === 'policies') {
+        fetchPoliseler();
+      } else if (activeTab === 'payments') {
+        fetchOdemeler();
+      } else if (activeTab === 'notifications') {
+        fetchNotifications();
+      }
+    }
+  }, [activeTab, isKullanici]);
+
+  // Poliçe Teklifi API Fonksiyonları
+  const fetchPoliceLookupData = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/Poliseler/lookup-data', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setPoliceLookupData(data);
+      }
+    } catch (err) {
+      console.error('Poliçe lookup data hatası:', err);
+    }
+  };
+
+  const fetchPoliceTeklifleri = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/PoliceTeklifleri', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data.Data)) {
+          setPoliceTeklifleri(data.Data);
+        } else if (Array.isArray(data)) {
+          setPoliceTeklifleri(data);
+        } else {
+          setPoliceTeklifleri([]);
+        }
+      } else {
+        setPoliceTeklifleri([]);
+        console.error('Poliçe teklifleri getirilemedi:', response.status);
+      }
+    } catch (err) {
+      setPoliceTeklifleri([]);
+      console.error('Poliçe teklifi API hatası:', err);
+    }
+  };
+
+  const fetchPoliceTeklifDetay = async (teklifId: number) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/PoliceTeklifleri/${teklifId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSelectedTeklif(data);
+        return data;
+      }
+    } catch (err) {
+      console.error('Poliçe teklif detay hatası:', err);
+    }
+  };
+
+  const createPoliceTeklif = async (teklifData: PoliceTeklifCreateDto) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/PoliceTeklifleri', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(teklifData)
+      });
+
+      if (response.ok) {
+        const newTeklif = await response.json();
+        setPoliceTeklifleri(prev => [newTeklif, ...prev]);
+        setTeklifModal({ type: null });
+        alert('Poliçe teklifi başarıyla oluşturuldu!');
+        return newTeklif;
+      } else {
+        const errorData = await response.json();
+        alert(`Poliçe teklifi oluşturulamadı: ${errorData.message || 'Bilinmeyen hata'}`);
+      }
+    } catch (err) {
+      console.error('Poliçe teklifi oluşturma hatası:', err);
+      alert('Poliçe teklifi oluşturulurken hata oluştu!');
+    }
+  };
+
+  const onaylaTeklif = async (teklifId: number) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/PoliceTeklifleri/${teklifId}/onayla`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        await fetchPoliceTeklifleri();
+        alert('Poliçe teklifi onaylandı!');
+      } else {
+        const errorData = await response.json();
+        alert(`Teklif onaylanamadı: ${errorData.message || 'Bilinmeyen hata'}`);
+      }
+    } catch (err) {
+      console.error('Teklif onaylama hatası:', err);
+      alert('Teklif onaylanırken hata oluştu!');
+    }
+  };
+
+  const reddetTeklif = async (teklifId: number, redNedeni: string) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/PoliceTeklifleri/${teklifId}/reddet`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ red_nedeni: redNedeni })
+      });
+
+      if (response.ok) {
+        await fetchPoliceTeklifleri();
+        alert('Poliçe teklifi reddedildi!');
+      } else {
+        const errorData = await response.json();
+        alert(`Teklif reddedilemedi: ${errorData.message || 'Bilinmeyen hata'}`);
+      }
+    } catch (err) {
+      console.error('Teklif reddetme hatası:', err);
+      alert('Teklif reddedilirken hata oluştu!');
+    }
+  };
+
+  // Poliçe API Fonksiyonları
+  const fetchPoliseler = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/Poliseler', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data.Data)) {
+          setPoliseler(data.Data);
+        } else if (Array.isArray(data)) {
+          setPoliseler(data);
+        } else {
+          setPoliseler([]);
+        }
+      } else {
+        setPoliseler([]);
+        console.error('Poliçeler getirilemedi:', response.status);
+      }
+    } catch (err) {
+      setPoliseler([]);
+      console.error('Poliçe API hatası:', err);
+    }
+  };
+
+  const fetchPoliceDetay = async (policeId: number) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/Poliseler/${policeId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSelectedPolice(data);
+        return data;
+      }
+    } catch (err) {
+      console.error('Poliçe detay hatası:', err);
+    }
+  };
+
+  const createPolice = async (policeData: PoliceCreateDto) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/Poliseler', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(policeData)
+      });
+
+      if (response.ok) {
+        const newPolice = await response.json();
+        setPoliseler(prev => [newPolice, ...prev]);
+        setPoliceModal({ type: null });
+        alert('Poliçe başarıyla oluşturuldu!');
+        return newPolice;
+      } else {
+        const errorData = await response.json();
+        alert(`Poliçe oluşturulamadı: ${errorData.message || 'Bilinmeyen hata'}`);
+      }
+    } catch (err) {
+      console.error('Poliçe oluşturma hatası:', err);
+      alert('Poliçe oluşturulurken hata oluştu!');
+    }
+  };
+
+  // Ödeme API Fonksiyonları
+  const fetchOdemeler = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/Odemeler', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data.Data)) {
+          setOdemeler(data.Data);
+        } else if (Array.isArray(data)) {
+          setOdemeler(data);
+        } else {
+          setOdemeler([]);
+        }
+      } else {
+        setOdemeler([]);
+        console.error('Ödemeler getirilemedi:', response.status);
+      }
+    } catch (err) {
+      setOdemeler([]);
+      console.error('Ödeme API hatası:', err);
+    }
+  };
+
+  const fetchOdemeDetay = async (odemeId: number) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/Odemeler/${odemeId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSelectedOdeme(data);
+        return data;
+      }
+    } catch (err) {
+      console.error('Ödeme detay hatası:', err);
+    }
+  };
+
+  const createOdeme = async (odemeData: OdemeCreateDto) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/Odemeler', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(odemeData)
+      });
+
+      if (response.ok) {
+        const newOdeme = await response.json();
+        setOdemeler(prev => [newOdeme, ...prev]);
+        setOdemeModal({ type: null });
+        alert('Ödeme başarıyla oluşturuldu!');
+        return newOdeme;
+      } else {
+        const errorData = await response.json();
+        alert(`Ödeme oluşturulamadı: ${errorData.message || 'Bilinmeyen hata'}`);
+      }
+    } catch (err) {
+      console.error('Ödeme oluşturma hatası:', err);
+      alert('Ödeme oluşturulurken hata oluştu!');
+    }
+  };
+
+  const taksitOdeme = async (odemeId: number, taksitData: TaksitOdemeDto) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/Odemeler/${odemeId}/taksit-odeme`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(taksitData)
+      });
+
+      if (response.ok) {
+        await fetchOdemeler();
+        alert('Taksit ödemesi başarıyla yapıldı!');
+      } else {
+        const errorData = await response.json();
+        alert(`Taksit ödemesi yapılamadı: ${errorData.message || 'Bilinmeyen hata'}`);
+      }
+    } catch (err) {
+      console.error('Taksit ödeme hatası:', err);
+      alert('Taksit ödemesi yapılırken hata oluştu!');
+    }
+  };
+
+  // Bildirim API Fonksiyonları
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/Bildirimler', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setBildirimler(data);
+        setBildirimSayisi(data.filter((b: any) => !b.okundu_mu).length);
+      } else {
+        setBildirimler([]);
+        setBildirimSayisi(0);
+      }
+    } catch (err) {
+      console.error('Bildirim API hatası:', err);
+      setBildirimler([]);
+      setBildirimSayisi(0);
+    }
+  };
 
   const fetchKullaniciData = async () => {
     try {
@@ -2248,7 +2883,7 @@ const Dashboard: React.FC = () => {
               <div className="filter-row">
                 <select
                   value={musteriSearchParams.tip_id || ''}
-                  onChange={(e) => setMusteriSearchParams(prev => ({ ...prev, tip_id: e.target.value ? parseInt(e.target.value) : undefined }))}
+                  onChange={(e) => setMusteriSearchParams(prev => ({ ...prev, tip_id: e.target.value ? Number(e.target.value) : undefined }))}
                 >
                   <option value="">Tüm Tipler</option>
                   {lookupData?.musteri_tipleri.map(tip => (
@@ -2279,6 +2914,11 @@ const Dashboard: React.FC = () => {
 
             {/* Müşteri Listesi */}
             <div className="table-container">
+              {musteriError && (
+                <div className="error-message" style={{color: 'red', marginBottom: 10}}>
+                  {musteriError}
+                </div>
+              )}
               {musteriLoading ? (
                 <div className="loading">Müşteriler yükleniyor...</div>
               ) : (
@@ -2472,7 +3112,7 @@ const Dashboard: React.FC = () => {
                         </div>
                         <div className="detail-row">
                           <label>Cep Telefonu:</label>
-                          <span>{musteriModal.musteri.cep_telefonu || 'Belirtilmemiş'}</span>
+                          <span>Belirtilmemiş</span>
                         </div>
                       </div>
 
@@ -2520,6 +3160,7 @@ const Dashboard: React.FC = () => {
                 {(musteriModal.type === 'create' || musteriModal.type === 'edit') && (
                   <form onSubmit={async (e) => {
                     e.preventDefault();
+                    setMusteriCreateError(null);
                     const formData = new FormData(e.target as HTMLFormElement);
                     const musteriData: MusteriCreateDto = {
                       tip_id: parseInt(formData.get('tip_id') as string),
@@ -2530,7 +3171,7 @@ const Dashboard: React.FC = () => {
                       tc_kimlik_no: formData.get('tc_kimlik_no') as string || undefined,
                       eposta: formData.get('eposta') as string || undefined,
                       telefon: formData.get('telefon') as string || undefined,
-                      cep_telefonu: formData.get('cep_telefonu') as string || undefined,
+                      
                       dogum_tarihi: formData.get('dogum_tarihi') as string || undefined,
                       cinsiyet_id: formData.get('cinsiyet_id') ? parseInt(formData.get('cinsiyet_id') as string) : undefined,
                       medeni_durum_id: formData.get('medeni_durum_id') ? parseInt(formData.get('medeni_durum_id') as string) : undefined,
@@ -2554,7 +3195,7 @@ const Dashboard: React.FC = () => {
                     if (success) {
                       alert(musteriModal.type === 'create' ? 'Müşteri başarıyla oluşturuldu' : 'Müşteri başarıyla güncellendi');
                     } else {
-                      alert('İşlem başarısız oldu');
+                      setMusteriCreateError('Müşteri kaydedilemedi. Lütfen zorunlu alanları doldurun ve tekrar deneyin.');
                     }
                   }}>
                     <div className="form-grid">
@@ -2605,7 +3246,7 @@ const Dashboard: React.FC = () => {
 
                       <div className="form-group">
                         <label>Cep Telefonu</label>
-                        <input type="tel" name="cep_telefonu" defaultValue={musteriModal.musteri?.cep_telefonu || ''} />
+                        
                       </div>
 
                       <div className="form-group">
@@ -2714,6 +3355,11 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         )}
+        {musteriCreateError && (
+          <div className="error-message" style={{color: 'red', marginBottom: 10}}>
+            {musteriCreateError}
+          </div>
+        )}
       </div>
     );
   }
@@ -2751,10 +3397,22 @@ const Dashboard: React.FC = () => {
               💰 Komisyon
             </button>
             <button 
+              className={activeTab === 'teklifler' ? 'active' : ''}
+              onClick={() => setActiveTab('teklifler')}
+            >
+              📝 Poliçe Teklifleri
+            </button>
+            <button 
               className={activeTab === 'policies' ? 'active' : ''}
               onClick={() => setActiveTab('policies')}
             >
               📋 Poliçeler
+            </button>
+            <button 
+              className={activeTab === 'customers' ? 'active' : ''}
+              onClick={() => setActiveTab('customers')}
+            >
+              👤 Müşteriler
             </button>
           </nav>
         </header>
@@ -2840,6 +3498,90 @@ const Dashboard: React.FC = () => {
             </div>
           )}
 
+          {activeTab === 'teklifler' && (
+            <div className="content-section">
+              <div className="section-header">
+                <h2>📝 Poliçe Teklifleri Yönetimi</h2>
+                <button 
+                  className="btn btn-primary"
+                  onClick={() => setTeklifModal({ type: 'create' })}
+                >
+                  ➕ Yeni Teklif Oluştur
+                </button>
+              </div>
+
+              <div className="teklifler-grid">
+                {policeTeklifleri.length === 0 ? (
+                  <div className="empty-state">
+                    <h3>📝 Henüz teklif oluşturulmamış</h3>
+                    <p>Müşterilerinize poliçe teklifleri göndermek için yeni teklif oluşturun.</p>
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => setTeklifModal({ type: 'create' })}
+                    >
+                      İlk Teklifinizi Oluşturun
+                    </button>
+                  </div>
+                ) : (
+                  <div className="teklifler-list">
+                    {policeTeklifleri.map((teklif) => (
+                      <div key={teklif.id} className="teklif-card">
+                        <div className="teklif-header">
+                          <h3>Teklif #{teklif.teklif_no}</h3>
+                          <span className={`status-badge ${teklif.durum_adi.toLowerCase()}`}>
+                            {teklif.durum_adi}
+                          </span>
+                        </div>
+                        <div className="teklif-details">
+                          <p><strong>Müşteri:</strong> {teklif.musteri_adi}</p>
+                          <p><strong>Poliçe Türü:</strong> {teklif.police_turu_adi}</p>
+                          <p><strong>Sigorta Şirketi:</strong> {teklif.sigorta_sirketi_adi}</p>
+                          <p><strong>Toplam Tutar:</strong> ₺{teklif.toplam_tutar?.toLocaleString() || '0'}</p>
+                          <p><strong>Teklif Tarihi:</strong> {new Date(teklif.teklif_tarihi).toLocaleDateString('tr-TR')}</p>
+                          {teklif.gecerlilik_tarihi && (
+                            <p><strong>Geçerlilik:</strong> {new Date(teklif.gecerlilik_tarihi).toLocaleDateString('tr-TR')}</p>
+                          )}
+                        </div>
+                        <div className="teklif-actions">
+                          <button 
+                            className="btn btn-secondary"
+                            onClick={() => {
+                              fetchPoliceTeklifDetay(teklif.id);
+                              setTeklifModal({ type: 'view', teklif: selectedTeklif || undefined });
+                            }}
+                          >
+                            👁️ Detay Görüntüle
+                          </button>
+                          {teklif.durum_adi === 'Beklemede' && (
+                            <>
+                              <button 
+                                className="btn btn-success"
+                                onClick={() => onaylaTeklif(teklif.id)}
+                              >
+                                ✅ Onayla
+                              </button>
+                              <button 
+                                className="btn btn-danger"
+                                onClick={() => {
+                                  const redNedeni = prompt('Red nedeni:');
+                                  if (redNedeni) {
+                                    reddetTeklif(teklif.id, redNedeni);
+                                  }
+                                }}
+                              >
+                                ❌ Reddet
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {activeTab === 'policies' && (
             <div className="content-section">
               <h2>Poliçe Yönetimi</h2>
@@ -2853,6 +3595,105 @@ const Dashboard: React.FC = () => {
                   <li>Yenileme takibi</li>
                   <li>İptal işlemleri</li>
                 </ul>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'customers' && (
+            <div className="content-section">
+              <div className="section-header">
+                <h2>👤 Müşteri Yönetimi</h2>
+                <button 
+                  className="btn btn-primary"
+                  onClick={() => setMusteriModal({ type: 'create' })}
+                >
+                  ➕ Yeni Müşteri Ekle
+                </button>
+              </div>
+
+              <div className="musteri-search">
+                <input
+                  type="text"
+                  placeholder="Müşteri ara..."
+                  value={musteriSearchParams.arama_metni || ''}
+                  onChange={(e) => setMusteriSearchParams(prev => ({
+                    ...prev,
+                    arama_metni: e.target.value,
+                    sayfa: 1
+                  }))}
+                  className="search-input"
+                />
+                <select
+                  value={musteriSearchParams.tip_id || ''}
+                  onChange={(e) => setMusteriSearchParams(prev => ({
+                    ...prev,
+                    tip_id: e.target.value ? Number(e.target.value) : undefined,
+                    sayfa: 1
+                  }))}
+                  className="filter-select"
+                >
+                  <option value="">Tüm Tipler</option>
+                  {lookupData?.musteri_tipleri.map(tip => (
+                    <option key={tip.id} value={tip.id}>{tip.text}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="musteri-list">
+                {musteriLoading ? (
+                  <div className="loading">Yükleniyor...</div>
+                ) : musteriTotalCount === 0 ? (
+                  <div className="empty-state">
+                    <h3>👤 Henüz müşteri kaydı yok</h3>
+                    <p>İlk müşterinizi ekleyerek satış sürecinizi başlatın.</p>
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => setMusteriModal({ type: 'create' })}
+                    >
+                      İlk Müşterinizi Ekleyin
+                    </button>
+                  </div>
+                ) : (
+                  <div className="musteri-grid">
+                    {musteriler.map((musteri) => (
+                      <div key={musteri.id} className="musteri-card">
+                        <div className="musteri-header">
+                          <h3>{musteri.tam_ad}</h3>
+                          <span className={`musteri-tip ${musteri.tip_adi.toLowerCase()}`}>
+                            {musteri.tip_adi}
+                          </span>
+                        </div>
+                        <div className="musteri-details">
+                          <p><strong>Müşteri No:</strong> {musteri.musteri_no}</p>
+                          {musteri.eposta && <p><strong>E-posta:</strong> {musteri.eposta}</p>}
+                          {musteri.telefon && <p><strong>Telefon:</strong> {musteri.telefon}</p>}
+                          {musteri.adres_il && <p><strong>İl:</strong> {musteri.adres_il}</p>}
+                          <p><strong>Kayıt Tarihi:</strong> {new Date(musteri.kayit_tarihi).toLocaleDateString('tr-TR')}</p>
+                        </div>
+                        <div className="musteri-actions">
+                          <button 
+                            className="btn btn-secondary"
+                            onClick={() => {
+                              fetchMusteriDetay(musteri.id);
+                              setMusteriModal({ type: 'view', musteri: selectedMusteri || undefined });
+                            }}
+                          >
+                            👁️ Detay Görüntüle
+                          </button>
+                          <button 
+                            className="btn btn-primary"
+                            onClick={() => {
+                              setTeklifCreateForm(prev => ({ ...prev, musteri_id: musteri.id }));
+                              setTeklifModal({ type: 'create' });
+                            }}
+                          >
+                            📝 Teklif Oluştur
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -2891,10 +3732,28 @@ const Dashboard: React.FC = () => {
             📋 Poliçelerim
           </button>
           <button 
+            className={activeTab === 'teklifler' ? 'active' : ''}
+            onClick={() => setActiveTab('teklifler')}
+          >
+            📝 Tekliflerim
+          </button>
+          <button 
             className={activeTab === 'claims' ? 'active' : ''}
             onClick={() => setActiveTab('claims')}
           >
             ⚡ Hasarlarım
+          </button>
+          <button 
+            className={activeTab === 'payments' ? 'active' : ''}
+            onClick={() => setActiveTab('payments')}
+          >
+            💳 Ödemelerim
+          </button>
+          <button 
+            className={activeTab === 'notifications' ? 'active' : ''}
+            onClick={() => setActiveTab('notifications')}
+          >
+            🔔 Bildirimlerim {bildirimSayisi > 0 && <span className="notification-badge">{bildirimSayisi}</span>}
           </button>
         </nav>
       </header>
@@ -2968,6 +3827,77 @@ const Dashboard: React.FC = () => {
           </div>
         )}
 
+        {activeTab === 'teklifler' && (
+          <div className="content-section">
+            <h2>📝 Poliçe Tekliflerim</h2>
+            
+            <div className="teklifler-grid">
+              {policeTeklifleri.length === 0 ? (
+                <div className="empty-state">
+                  <h3>📝 Henüz teklif almamışsınız</h3>
+                  <p>Acente tarafından size gönderilen poliçe teklifleri burada görüntülenecek.</p>
+                  <p>Teklif aldığınızda buradan inceleyebilir ve onaylayabilirsiniz.</p>
+                </div>
+              ) : (
+                <div className="teklifler-list">
+                  {policeTeklifleri.map((teklif) => (
+                    <div key={teklif.id} className="teklif-card">
+                      <div className="teklif-header">
+                        <h3>Teklif #{teklif.teklif_no}</h3>
+                        <span className={`status-badge ${teklif.durum_adi.toLowerCase()}`}>
+                          {teklif.durum_adi}
+                        </span>
+                      </div>
+                      <div className="teklif-details">
+                        <p><strong>Poliçe Türü:</strong> {teklif.police_turu_adi}</p>
+                        <p><strong>Sigorta Şirketi:</strong> {teklif.sigorta_sirketi_adi}</p>
+                        <p><strong>Toplam Tutar:</strong> ₺{teklif.toplam_tutar?.toLocaleString() || '0'}</p>
+                        <p><strong>Teklif Tarihi:</strong> {new Date(teklif.teklif_tarihi).toLocaleDateString('tr-TR')}</p>
+                        {teklif.gecerlilik_tarihi && (
+                          <p><strong>Geçerlilik:</strong> {new Date(teklif.gecerlilik_tarihi).toLocaleDateString('tr-TR')}</p>
+                        )}
+                        <p><strong>Acente:</strong> {teklif.olusturan_kullanici}</p>
+                      </div>
+                      <div className="teklif-actions">
+                        <button 
+                          className="btn btn-secondary"
+                          onClick={() => {
+                            fetchPoliceTeklifDetay(teklif.id);
+                            setTeklifModal({ type: 'view', teklif: selectedTeklif || undefined });
+                          }}
+                        >
+                          👁️ Detay Görüntüle
+                        </button>
+                        {teklif.durum_adi === 'Beklemede' && (
+                          <>
+                            <button 
+                              className="btn btn-success"
+                              onClick={() => onaylaTeklif(teklif.id)}
+                            >
+                              ✅ Teklifi Onayla
+                            </button>
+                            <button 
+                              className="btn btn-danger"
+                              onClick={() => {
+                                const redNedeni = prompt('Red nedeni:');
+                                if (redNedeni) {
+                                  reddetTeklif(teklif.id, redNedeni);
+                                }
+                              }}
+                            >
+                              ❌ Teklifi Reddet
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {activeTab === 'claims' && (
           <div className="content-section">
             <h2>Hasar Takibi</h2>
@@ -2982,6 +3912,139 @@ const Dashboard: React.FC = () => {
                 <li>Ödeme bilgileri</li>
                 <li>Döküman yükleme</li>
               </ul>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'payments' && (
+          <div className="content-section">
+            <h2>💳 Ödemelerim</h2>
+            
+            <div className="odemeler-grid">
+              {odemeler.length === 0 ? (
+                <div className="empty-state">
+                  <h3>💳 Henüz ödeme kaydınız yok</h3>
+                  <p>Poliçe satın aldığınızda ödeme bilgileriniz burada görüntülenecek.</p>
+                  <p>Taksit ödemelerinizi buradan takip edebilirsiniz.</p>
+                </div>
+              ) : (
+                <div className="odemeler-list">
+                  {odemeler.map((odeme) => (
+                    <div key={odeme.id} className="odeme-card">
+                      <div className="odeme-header">
+                        <h3>Ödeme #{odeme.odeme_no}</h3>
+                        <span className={`status-badge ${odeme.durum_adi.toLowerCase()}`}>
+                          {odeme.durum_adi}
+                        </span>
+                      </div>
+                      <div className="odeme-details">
+                        <p><strong>Poliçe No:</strong> {odeme.police_no}</p>
+                        <p><strong>Ödeme Türü:</strong> {odeme.odeme_turu}</p>
+                        <p><strong>Tutar:</strong> ₺{odeme.tutar.toLocaleString()}</p>
+                        <p><strong>Vade Tarihi:</strong> {new Date(odeme.vade_tarihi).toLocaleDateString('tr-TR')}</p>
+                        {odeme.odeme_tarihi && (
+                          <p><strong>Ödeme Tarihi:</strong> {new Date(odeme.odeme_tarihi).toLocaleDateString('tr-TR')}</p>
+                        )}
+                      </div>
+                      <div className="odeme-actions">
+                        <button 
+                          className="btn btn-secondary"
+                          onClick={() => {
+                            fetchOdemeDetay(odeme.id);
+                            setOdemeModal({ type: 'view', odeme: selectedOdeme || undefined });
+                          }}
+                        >
+                          👁️ Detay Görüntüle
+                        </button>
+                        {odeme.durum_adi === 'Beklemede' && (
+                          <button 
+                            className="btn btn-primary"
+                            onClick={() => {
+                              setOdemeModal({ type: 'taksit-odeme', odeme: selectedOdeme || undefined });
+                            }}
+                          >
+                            💳 Ödeme Yap
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'notifications' && (
+          <div className="content-section">
+            <h2>🔔 Bildirimlerim</h2>
+            
+            <div className="bildirimler-grid">
+              {bildirimler.length === 0 ? (
+                <div className="empty-state">
+                  <h3>🔔 Henüz bildiriminiz yok</h3>
+                  <p>Poliçe teklifleri, ödeme güncellemeleri ve diğer önemli bilgiler burada görüntülenecek.</p>
+                  <p>Yeni bildirimler geldiğinde buradan takip edebilirsiniz.</p>
+                </div>
+              ) : (
+                <div className="bildirimler-list">
+                  {bildirimler.map((bildirim) => (
+                    <div key={bildirim.id} className={`bildirim-card ${!bildirim.okundu_mu ? 'unread' : ''}`}>
+                      <div className="bildirim-header">
+                        <h3>{bildirim.baslik}</h3>
+                        <span className={`status-badge ${bildirim.okundu_mu ? 'read' : 'unread'}`}>
+                          {bildirim.okundu_mu ? '✅ Okundu' : '🔔 Yeni'}
+                        </span>
+                      </div>
+                      <div className="bildirim-details">
+                        <p className="bildirim-content">{bildirim.icerik}</p>
+                        <p className="bildirim-date">
+                          <strong>Gönderim Tarihi:</strong> {new Date(bildirim.gonderim_tarihi).toLocaleString('tr-TR')}
+                        </p>
+                      </div>
+                      <div className="bildirim-actions">
+                        {!bildirim.okundu_mu && (
+                          <button 
+                            className="btn btn-primary"
+                            onClick={async () => {
+                              try {
+                                const response = await fetch(`http://localhost:5000/api/Bildirimler/${bildirim.id}/okundu`, {
+                                  method: 'PUT',
+                                  headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                    'Content-Type': 'application/json'
+                                  }
+                                });
+                                
+                                if (response.ok) {
+                                  // Bildirimi okundu olarak işaretle
+                                  setBildirimler(prev => prev.map(b => 
+                                    b.id === bildirim.id ? { ...b, okundu_mu: true } : b
+                                  ));
+                                  setBildirimSayisi(prev => Math.max(0, prev - 1));
+                                }
+                              } catch (err) {
+                                console.error('Bildirim okundu işaretlenirken hata:', err);
+                              }
+                            }}
+                          >
+                            ✅ Okundu Olarak İşaretle
+                          </button>
+                        )}
+                        <button 
+                          className="btn btn-secondary"
+                          onClick={() => {
+                            // Bildirim detaylarını görüntüle
+                            alert(`Bildirim Detayı:\n\n${bildirim.baslik}\n\n${bildirim.icerik}\n\nGönderim: ${new Date(bildirim.gonderim_tarihi).toLocaleString('tr-TR')}`);
+                          }}
+                        >
+                          👁️ Detay Görüntüle
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}

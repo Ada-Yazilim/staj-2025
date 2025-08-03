@@ -11,23 +11,15 @@ public partial class MUSTERILER
 
     public string musteri_no { get; set; } = null!;
 
-    public int tip_id { get; set; }
-
     public string? ad { get; set; }
 
     public string? soyad { get; set; }
-
-    public string? sirket_adi { get; set; }
-
-    public string? vergi_no { get; set; }
 
     public string? tc_kimlik_no { get; set; }
 
     public string? eposta { get; set; }
 
     public string? telefon { get; set; }
-
-    public string? cep_telefonu { get; set; }
 
     public DateOnly? dogum_tarihi { get; set; }
 
@@ -80,10 +72,6 @@ public partial class MUSTERILER
     public virtual KULLANICILAR? kullanici { get; set; }
 
     public virtual DURUM_TANIMLARI? medeni_durum { get; set; }
-
-    public virtual DURUM_TANIMLARI tip { get; set; } = null!;
     
-    // Identity Framework entegrasyonu
-    public string? ApplicationUserId { get; set; }
-    public virtual ApplicationUser? ApplicationUser { get; set; }
+
 }

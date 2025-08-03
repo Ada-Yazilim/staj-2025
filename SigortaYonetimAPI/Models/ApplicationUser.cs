@@ -19,10 +19,6 @@ namespace SigortaYonetimAPI.Models
         public int? KullanicilarId { get; set; }
         public virtual KULLANICILAR? Kullanici { get; set; }
         
-        // Navigation property to MUSTERILER table  
-        public int? MusteriId { get; set; }
-        public virtual MUSTERILER? Musteri { get; set; }
-        
         // Additional properties for enhanced user management
         public string? Pozisyon { get; set; }
         public string? Departman { get; set; }

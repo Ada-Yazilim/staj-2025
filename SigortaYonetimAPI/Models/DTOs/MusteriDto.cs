@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using SigortaYonetimAPI.Validations;
 
 namespace SigortaYonetimAPI.Models.DTOs
 {
@@ -22,8 +23,6 @@ namespace SigortaYonetimAPI.Models.DTOs
     {
         public int id { get; set; }
         public string musteri_no { get; set; } = string.Empty;
-        public int tip_id { get; set; }
-        public string tip_adi { get; set; } = string.Empty;
         public string? ad { get; set; }
         public string? soyad { get; set; }
         public string? sirket_adi { get; set; }
@@ -31,7 +30,6 @@ namespace SigortaYonetimAPI.Models.DTOs
         public string? tc_kimlik_no { get; set; }
         public string? eposta { get; set; }
         public string? telefon { get; set; }
-        public string? cep_telefonu { get; set; }
         public DateOnly? dogum_tarihi { get; set; }
         public int? cinsiyet_id { get; set; }
         public string? cinsiyet_adi { get; set; }
@@ -62,9 +60,6 @@ namespace SigortaYonetimAPI.Models.DTOs
 
     public class MusteriCreateDto
     {
-        [Required(ErrorMessage = "Müşteri tipi zorunludur")]
-        public int tip_id { get; set; }
-
         [StringLength(50, ErrorMessage = "Ad en fazla 50 karakter olabilir")]
         public string? ad { get; set; }
 
@@ -74,9 +69,11 @@ namespace SigortaYonetimAPI.Models.DTOs
         [StringLength(100, ErrorMessage = "Şirket adı en fazla 100 karakter olabilir")]
         public string? sirket_adi { get; set; }
 
+        [TurkishVergiNo(ErrorMessage = "Geçerli bir vergi numarası giriniz (10 haneli)")]
         [StringLength(20, ErrorMessage = "Vergi numarası en fazla 20 karakter olabilir")]
         public string? vergi_no { get; set; }
 
+        [TurkishTcKimlik(ErrorMessage = "Geçerli bir TC Kimlik numarası giriniz (11 haneli)")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "TC Kimlik numarası 11 karakter olmalıdır")]
         public string? tc_kimlik_no { get; set; }
 
@@ -84,13 +81,9 @@ namespace SigortaYonetimAPI.Models.DTOs
         [StringLength(100, ErrorMessage = "E-posta en fazla 100 karakter olabilir")]
         public string? eposta { get; set; }
 
-        [Phone(ErrorMessage = "Geçerli bir telefon numarası giriniz")]
+        [TurkishPhone(ErrorMessage = "Geçerli bir Türkiye telefon numarası giriniz (Örn: 0212 123 45 67)")]
         [StringLength(20, ErrorMessage = "Telefon en fazla 20 karakter olabilir")]
         public string? telefon { get; set; }
-
-        [Phone(ErrorMessage = "Geçerli bir cep telefonu numarası giriniz")]
-        [StringLength(20, ErrorMessage = "Cep telefonu en fazla 20 karakter olabilir")]
-        public string? cep_telefonu { get; set; }
 
         public DateOnly? dogum_tarihi { get; set; }
         public int? cinsiyet_id { get; set; }
@@ -137,7 +130,6 @@ namespace SigortaYonetimAPI.Models.DTOs
     public class MusteriSearchDto
     {
         public string? arama_metni { get; set; } // Genel arama
-        public int? tip_id { get; set; }
         public string? musteri_no { get; set; }
         public string? tc_kimlik_no { get; set; }
         public string? vergi_no { get; set; }
