@@ -1,53 +1,94 @@
-![Logo](https://www.adayazilim.com/public/dist/img/ada-yazilim-logo.png)
+# Sigortacılık Uygulaması (Staj 2025)
 
+Bu proje; ASP.NET Core Web API (.NET 8) + React (Vite) tabanlı bir sigortacılık örnek uygulamasıdır.
+Kimlik doğrulama **Identity + JWT**, yetkilendirme **Rol** bazlıdır.
 
-# Ada Yazılım - 2025 Staj Programı
+## Hızlı Başlangıç
 
-**Ada Yazılım** olarak her yıl düzenli olarak gerçekleştirdiğimiz staj programımızın bu yıla ait planlaması aşağıda belirtilen esaslar doğrultusunda yürütülecektir:
+### Gereksinimler
+- .NET 8 SDK
+- Node.js 20+
+- SQL Server (veya localdb)
 
-Staj süresi **bir ay** olarak belirlenmiş olup, bu süre zarfında tüm stajyerlerin **sigortacılık alanına yönelik** belirli bir yazılım projesi üzerinde çalışmaları beklenmektedir. Geliştirilecek projenin konusu ve gereksinimleri bu dokümanın devamında ayrıntılı olarak belirtilmiştir. Bununla birlikte, **sigortacılık alanıyla ilişkili** farklı bir proje fikri bulunan stajyerler, bu fikirlerini proje sorumlusu ekip liderine sunmaları ve **onay almaları halinde** kendi projelerini geliştirme yönünde ilerleyebileceklerdir.
+### Backend (API)
+```bash
+cd SigortaAPI/SigortaAPI
+# Geliştirme ayar örneğini kopyalayın ve değerleri doldurun
+# appsettings.Development.json.example -> appsettings.Development.json
+dotnet restore
+dotnet ef database update   # migration uygula
+dotnet run
+```
 
-Proje geliştirme sürecinde kullanılacak teknoloji ve platform seçiminde stajyerlere **serbestlik tanınmaktadır**. Web, mobil veya masaüstü tabanlı uygulamalar geliştirilebilmektedir. Şirket bünyesinde yaygın olarak .NET ve React teknolojileri kullanılmakta olduğundan, bu teknolojilerin tercih edilmesi önerilmektedir. **Ancak stajyerin kendini en yetkin, üretken ve rahat hissettiği teknolojiyi kullanması desteklenmektedir.**
+* Swagger (Geliştirme): `https://localhost:****/swagger`
+* İlk çalıştırmada **Admin** rolü ve `admin / Admin123!` kullanıcısı seed edilir.
 
-**Staj programının temel amacı teknoloji bilgisini ölçmek değil; algoritma kurma yeteneği, problem çözme becerisi ve proje geliştirme yaklaşımını değerlendirmektir.**
+### Frontend
 
-Proje çalışmaları, **Ada Yazılım’a ait GitHub organizasyonu altında her stajyer için ayrılacak bireysel alanlar üzerinden yürütülecektir.** Tüm kodlama ve dokümantasyon süreci bu platform üzerinden yönetilecek; **haftalık ilerlemeler düzenli olarak GitHub’a aktarılacak ve ekip toplantılarında paylaşılacaktır.** Staj dönemi, her stajyerin geliştirme sürecine katkı sağladığı projenin **bireysel sunumu ile tamamlanacaktır.**
+```bash
+cd frontend
+# .env.example -> .env (VITE_API_URL değerini girin, ör: https://localhost:44305)
+npm install
+npm run dev
+```
 
+### CORS
 
-## Proje Konusu ve Amacı
+Varsayılan izin verilen kaynaklar: `http://localhost:5173`, `http://localhost:5174`, `http://localhost:3000`.
+Gerekirse `Program.cs` içindeki `AllowFrontend` politikasını güncelleyin.
 
-2025 yılı Ada Yazılım staj programı kapsamında geliştirilecek proje, **Sigorta Yönetim Platformu**dur. Bu uygulamanın temel amacı, sigortacılık sektöründe yaygın olarak karşılaşılan süreçleri yazılım ortamına taşımak ve bu süreçlerin yönetimini kolaylaştıran bir sistem geliştirmektir.
+## Kimlik Doğrulama / Yetkilendirme
 
-Proje kapsamında aşağıdaki temel modüllerin yer alması beklenmektedir:
+1. **Giriş**: `POST /api/Auth/login`
+2. Dönüş:
 
-### Kullanıcı Yönetimi ve Yetkilendirme Modülü
-Uygulamaya erişen kullanıcıların kimlik doğrulama süreçlerini ve yetki seviyelerinin yönetilmesini sağlar. Kullanıcıların kayıt olma, giriş yapma, şifre sıfırlama gibi temel işlemleri destekler. Farklı kullanıcı rollerine göre erişim izinleri tanımlanır.
+```json
+{
+  "token": "JWT_TOKEN",
+  "expiration": "yyyy-mm-ddThh:mm:ssZ",
+  "roles": ["Admin","Agent"]
+}
+```
 
-### Üretim Modülü
-Kullanıcının sistem üzerinden sigorta teklifi alabilmesi, teklifi onaylaması ve ardından online ödeme adımıyla poliçeleştirme işlemini gerçekleştirebilmesi.
+3. Swagger’da **Authorize** → `Bearer JWT_TOKEN`
+4. Frontend `localStorage.token` üzerinden rolleri çözümler.
 
-### Müşteri Modülü
-Bireysel ve kurumsal müşterilerin sisteme kaydedilmesi, bilgilerin güncellenmesi ve müşteri bazlı poliçe geçmişinin izlenmesi.
+## Önemli Endpointler
 
-### Hasar Modülü
-Poliçe sahibi kullanıcıların hasar bildirimi yapabilmesi, hasar dosyalarının oluşturulması ve sürecin sistem üzerinden takip edilebilmesi.
+* `GET /api/customers` → **Agent/Admin**
+* `GET /api/customers/{id}` → **Agent/Admin**
+* `POST/PUT /api/customers` → **Agent/Admin**
+* `DELETE /api/customers/{id}` → **Admin**
 
-### Ödeme Modülü
-Sigorta poliçelerinin satın alınması ve yenilenmesi süreçlerindeki ödeme işlemleri bu modülde yönetilir. Kredi kartı vb. ödeme yöntemleri taklit edilerek dummy ödeme süreçleri gerçekleştirilir. Gerçek finansal işlem veya ödeme altyapısı entegre edilmeyecek, sistem işleyişi örnek senaryolar üzerinden simüle edilecektir.
+> Policies/Claims/Payments/Documents için benzer desen geçerlidir.
 
-### Raporlama Modülü
-Bu modül, sigorta süreçleri, müşteri işlemleri ve hasar durumlarına ilişkin verilerin analitik olarak sunulmasını sağlar. Grafik ve tablolarla raporlama yapılır.
+## Geliştirme Komutları
 
-### Döküman Modülü
-Bu modül, poliçe ve müşteri ile ilgili belgelerin yüklenmesi, saklanması ve erişilmesini sağlar. Belgeler sistemde tutulur ancak gerçek dosya yönetimi operasyonları yerine basit örnek/dummy dosyalar ve işlemler kullanılacaktır. Amaç, doküman yönetimi sürecinin temel mantığını göstermek ve pratiğe dökmektir.
+* Migration ekleme: `dotnet ef migrations add <Ad>`
+* Migration geri alma: `dotnet ef database update <MigrationAdı>`
 
-### EK NOT
+## Katkı & Git Akışı (Fork)
 
-Unit test veya End-to-End test gibi testler opsiyonel olup, uygulama içerisinde SMS, E-posta, Yapay Zeka (Chatbot/LLM) gibi entegrasyonlar da opsiyonel olarak değerlendirilecektir. Bu tür ek özelliklerin projeye dahil edilmesi **zorunlu olmamakla birlikte**, stajyerlerin teknik yetkinliklerini ve inisiyatiflerini göstermeleri açısından **artı puan** sağlayacaktır.
+* Senkron:
 
-**Staj projesi olarak geliştirilen bu uygulama, gerçek bir üretim (production) ortamında kullanılmak üzere tasarlanmamış olup, sektörel süreçlerin temel prensiplerini anlamak ve uygulamak amacıyla hazırlanmıştır. Dolayısıyla, uygulamanın işleyişi ve kapsamı prototip seviyesinde olup, gerçek dünya koşullarını tamamen yansıtmayabilir.**
+```bash
+git remote add upstream <ORİJİNAL_REPO_URL> || true
+git fetch upstream
+git rebase upstream/main   # veya merge
+```
 
-Bu proje ile stajyerlerin, gerçek hayatta karşılığı olan bir sektörel ihtiyacı analiz etme, yazılım mimarisi kurma, modüler bir yapı geliştirme ve iş süreçlerini yazılıma aktarma becerilerini geliştirmeleri hedeflenmektedir. Ayrıca, bu süreçte yazılım geliştirme yaşam döngüsünün temel adımları olan analiz, geliştirme, test ve sürümleme aşamalarını deneyimlemeleri amaçlanmaktadır. Staj programı boyunca kazanılacak bu deneyimlerin, katılımcıların kariyer yolculuğunda sağlam bir temel oluşturacağına inanıyor ve tüm stajyerlerimize projelerini büyük bir heyecan ve sorumlulukla geliştirmelerini diliyoruz.
+* Push:
 
+```bash
+git push origin melih-alcik
+```
 
-### © 2025 Ada Yazılım. Tüm hakları saklıdır.
+* PR: Fork’tan orijinal repo **main**’ine PR açın. Açıklamayı Türkçe yazın.
+
+## Lisans
+
+Bu proje eğitim amaçlıdır.
+
+## Opsiyonel Sağlık Kontrolü
+
+“/health endpoint’i yoksa ileride eklenebilir (Microsoft.Extensions.Diagnostics.HealthChecks).”

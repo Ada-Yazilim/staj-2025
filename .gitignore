@@ -1,0 +1,37 @@
+# OS/IDE
+.DS_Store
+.vs/
+.vscode/
+Thumbs.db
+
+# Node
+node_modules/
+**/node_modules/
+pnpm-lock.yaml
+yarn.lock
+
+# Env files (keep examples)
+*.env
+*.env.local
+frontend/.env
+frontend/.env.local
+!frontend/.env.example
+
+# Build outputs
+dist/
+build/
+
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# App settings (keep example)
+SigortaAPI/SigortaAPI/appsettings.Development.json
+SigortaAPI/SigortaAPI/appsettings.Production.json
+
+# NPM artifacts in backend (if any)
+SigortaAPI/SigortaAPI/node_modules/
+SigortaAPI/SigortaAPI/package-lock.json
+

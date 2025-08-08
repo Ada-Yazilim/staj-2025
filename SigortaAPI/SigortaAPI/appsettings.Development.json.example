@@ -1,0 +1,15 @@
+{
+  "Jwt": {
+    "Issuer": "SigortaApiIssuerDev",
+    "Audience": "SigortaApiAudienceDev",
+    "Key": "CHANGE_THIS_DEVELOPMENT_SECRET_KEY"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=.;Database=SigortaDb;Trusted_Connection=True;TrustServerCertificate=True"
+  },
+  "Swagger": {
+    "Enable": true,
+    "Title": "Sigorta API (Geliştirme)"
+  }
+}
+
